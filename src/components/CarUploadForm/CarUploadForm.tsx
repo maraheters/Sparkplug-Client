@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Engine, Manufacturer, Transmission } from '../api/sparkplugApi';
+import { useState } from 'react';
+import styles from './CarUploadForm.module.scss'
+import { Engine, Manufacturer, Transmission } from '../../api/sparkplugApi';
 
-interface CarFormData {
+export interface CarFormData {
     engine: Engine;
     color: string;
     transmission: Transmission;
@@ -41,7 +42,11 @@ const initialFormData: CarFormData = {
     drivetrain: ''
 };
 
-const CarUploadForm: React.FC = () => {
+interface Props {
+    onChange: (data: CarFormData) => void;
+}
+
+const CarUploadForm: React.FC<Props> = ({onChange}) => {
     const [formData, setFormData] = useState<CarFormData>(initialFormData);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -53,7 +58,7 @@ const CarUploadForm: React.FC = () => {
             setFormData(prevData => ({
                 ...prevData,
                 [keys[0]]: {
-                    ...prevData[keys[0]],
+                    ...(prevData[keys[0] as keyof CarFormData] as any),
                     [keys[1]]: value
                 }
             }));
@@ -63,107 +68,86 @@ const CarUploadForm: React.FC = () => {
                 [name]: value
             }));
         }
+
+        onChange(formData);
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-            const response = await fetch('http://localhost:8080/postings', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log('Car uploaded successfully:', data);
-        } catch (error) {
-            console.error('Error uploading car:', error);
-        }
-    };
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <h2>Upload Car</h2>
-            <div>
+    return(
+        <form className={ styles.form}>
+            <h2>Car Data</h2>
+            <div className={styles.formGroup}>
                 <label>Model:</label>
                 <input type="text" name="model" value={formData.model} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Year:</label>
                 <input type="number" name="year" value={formData.year} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Color:</label>
                 <input type="text" name="color" value={formData.color} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Price:</label>
                 <input type="number" name="price" value={formData.price} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Mileage:</label>
                 <input type="number" name="mileage" value={formData.mileage} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Description:</label>
                 <textarea name="description" value={formData.description} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Drivetrain:</label>
                 <input type="text" name="drivetrain" value={formData.drivetrain} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Category Name:</label>
                 <input type="text" name="categoryName" value={formData.categoryName} onChange={handleChange} required />
             </div>
             <h3>Engine Details</h3>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Power:</label>
                 <input type="number" name="engine.power" value={formData.engine.power} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Torque:</label>
                 <input type="number" name="engine.torque" value={formData.engine.torque} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Type:</label>
                 <input type="text" name="engine.type" value={formData.engine.type} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Fuel Type:</label>
                 <input type="text" name="engine.fuelType" value={formData.engine.fuelType} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Displacement:</label>
                 <input type="number" name="engine.displacement" value={formData.engine.displacement} onChange={handleChange} required />
             </div>
             <h3>Transmission Details</h3>
-            <div>
+                <div className={styles.formGroup}>
                 <label>Gearbox Type:</label>
-                <input type="text" name="transmission.gearboxType" value={formData.transmission.gearboxType} onChange={handleChange} required />
+            <input type="text" name="transmission.gearboxType" value={formData.transmission.gearboxType} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Number of Gears:</label>
                 <input type="number" name="transmission.numberOfGears" value={formData.transmission.numberOfGears} onChange={handleChange} required />
             </div>
             <h3>Manufacturer Details</h3>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Manufacturer Name:</label>
                 <input type="text" name="manufacturer.name" value={formData.manufacturer.name} onChange={handleChange} required />
             </div>
-            <div>
+            <div className={styles.formGroup}>
                 <label>Country:</label>
                 <input type="text" name="manufacturer.country" value={formData.manufacturer.country} onChange={handleChange} required />
             </div>
-            <button type="submit">Upload Car</button>
         </form>
     );
-};
+}
 
 export default CarUploadForm;

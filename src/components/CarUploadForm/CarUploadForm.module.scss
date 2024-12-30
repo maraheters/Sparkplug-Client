@@ -1,0 +1,47 @@
+$accent-color: #dc3545;
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 2px solid $accent-color;
+    width: 100%;
+
+    h2, h3 {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.6rem;
+    }
+
+    button {
+        margin: 0;
+        padding: 10px;
+        max-width: 100%;
+    }
+
+}
+
+.formGroup {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    flex: 1;
+    margin-right: 10px;
+    text-align: right;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+    flex: 2;
+    padding: 8px;
+}
+
+.imageUploadContainer {
+    display: flex;
+    background-color: black;
+}

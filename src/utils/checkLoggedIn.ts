@@ -1,19 +1,23 @@
-function checkUserLoggedIn() {
-    const token = localStorage.getItem('authToken');
-    const username = localStorage.getItem('username');
-    
-    if (token && username) {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const isExpired = payload.exp * 1000 < Date.now(); 
-        
-        if (isExpired) {
-            return false;
-        }
+import { whoAmIRequest } from "../api/sparkplugApi";
 
-        return true;
-    } 
+async function checkUserLoggedIn() {
+    const token = localStorage.getItem('authToken');
     
-    return false;
+    if (!token) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
+        return false;
+    }
+
+    try {
+        await whoAmIRequest(token);
+        return true;
+    } catch (e) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
+        return false;
+    }
+
 }
 
 export default checkUserLoggedIn;

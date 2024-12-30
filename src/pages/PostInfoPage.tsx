@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import CarInfo from "../components/CarInfo";
+import CarInfo from "../components/CarInfo/CarInfo";
 import { useEffect, useState } from "react";
 import { fetchPostingById, Posting } from "../api/sparkplugApi";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 
 function PostInfoPage() {
     const [posting, setPosting] = useState<Posting | null>(null);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../styles/LoginRegister.module.scss'
+import styles from './LoginRegister.module.scss'
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');

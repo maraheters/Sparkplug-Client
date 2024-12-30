@@ -21,7 +21,7 @@ $background-color: #ffffff;
 
 .header__nav {
     @include flex-row;
-    border-bottom: 1px solid $accent-color;
+    border-bottom: 2px solid $accent-color;
     background-color: $background-color;
     position: fixed;
     top: 0;

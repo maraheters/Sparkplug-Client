@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/ImageGallery.module.scss";
+import styles from "./ImageGallery.module.scss";
 
 type Props = {
     imageUrls: string[];

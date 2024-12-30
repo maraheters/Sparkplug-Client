@@ -33,4 +33,17 @@ function formatDate(dateString: string): string {
     return `${year}.${month}.${day}`;
 }
 
-export { formatPrice, formatMileageKm, formatDisplacement, formatPowerHp, formatPowerKwAndHp, formatTorqueNm, formatDate };
+function capitalize(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export { 
+    formatPrice, 
+    formatMileageKm, 
+    formatDisplacement, 
+    formatPowerHp, 
+    formatPowerKwAndHp, 
+    formatTorqueNm, 
+    formatDate, 
+    capitalize,
+};

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../styles/LoginRegister.module.scss'
+import styles from './LoginRegister.module.scss'
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState('');

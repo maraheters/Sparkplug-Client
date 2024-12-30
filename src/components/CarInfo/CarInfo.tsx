@@ -1,8 +1,9 @@
 // CarInfo.tsx
-import { Posting } from "../api/sparkplugApi.ts";
-import ImageGallery from "./ImageGallery.tsx";
-import styles from "../styles/CarInfo.module.scss"
-import { formatDisplacement, formatMileageKm, formatPowerKwAndHp, formatPrice, formatTorqueNm } from "../utils/utils.ts";
+import { Posting } from "../../api/sparkplugApi.ts";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import styles from "./CarInfo.module.scss"
+import { capitalize, formatDisplacement, formatMileageKm, formatPowerKwAndHp, formatPrice, formatTorqueNm } from "../../utils/utils.ts";
+import { Link } from "react-router-dom";
 
 type Props = {
     posting: Posting;
@@ -24,16 +25,22 @@ const CarInfo = ({ posting }: Props) => {
                         <h1 className={styles.mainHeading}>{car.year} {car.manufacturer.name} {car.model}</h1>
                         <h2 className={styles.price}>{formatPrice(car.price)}</h2>
                         <h2 className={styles.mileage}>{formatMileageKm(car.mileage)}</h2>
+                        <h2 className={styles.owner}>Owner: <Link to={`/users/${posting.creatorId}`}>{posting.creator}</Link></h2>
                     </div>
-                    {car.color && <h3>{car.color}</h3>}
-                    {car.category && <h3>{car.category}</h3>}
+
+                    <div className={styles.shareAndWishlistContainer}>
+                        <button className={styles.shareButton}>Share</button>
+                        <button className={styles.wishlistButton}>Add to Wishlist</button>
+                    </div>
+                    {car.color && <h3>{capitalize(car.color)}</h3>}
+                    {car.category && <h3>{capitalize(car.category)}</h3>}
                     {engine && engine.displacement != null && <h3>{formatDisplacement(engine.displacement)} {engine.type}</h3>}
-                    {engine && engine.fuelType && <h3>{engine.fuelType}</h3>}
-                    {transmission && transmission.gearboxType && <h3>{transmission.gearboxType}</h3>}
+                    {engine && engine.fuelType && <h3>{capitalize(engine.fuelType)}</h3>}
+                    {transmission && transmission.gearboxType && <h3>{capitalize(transmission.gearboxType)}</h3>}
                 </div>
             </div>   
 
-            <div className={styles.summary}>
+            {/* <div className={styles.summary}>
                 <div className={styles.summaryElement}>
                     <figure></figure>
                     <p>fsd</p>
@@ -49,7 +56,7 @@ const CarInfo = ({ posting }: Props) => {
                     <p>fsd</p>
                     <p>fsd</p>
                 </div>
-            </div>
+            </div> */}
 
             <div className={styles.detailedInfo}>
                 {engine && 

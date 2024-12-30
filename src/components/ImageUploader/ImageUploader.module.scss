@@ -1,0 +1,33 @@
+$accent-color: #dc3545;
+
+.imageUploaderContainer {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem;
+    border: 2px solid $accent-color;
+    width: 100%;
+
+    h2, h3 {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.6rem;
+    }
+
+    input {
+        margin: 0;
+        background:none;
+    }
+}
+
+.uploadedImage {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: contain;
+}
+
+.removeImageButton {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+}

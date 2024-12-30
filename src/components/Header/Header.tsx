@@ -1,10 +1,18 @@
-import { useState } from 'react';
-import styles from '../styles/Header.module.scss';
+import { useEffect, useState } from 'react';
+import styles from './Header.module.scss';
 import { Link } from "react-router-dom";
-import checkUserLoggedIn from '../utils/checkLoggedIn';
+import checkUserLoggedIn from '../../utils/checkLoggedIn';
 
 function Header() {
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect( () => {
+        const checkLoggedIn = async () => {
+            setIsLoggedIn(await checkUserLoggedIn());
+        }
+        checkLoggedIn();
+    }, [] )
 
     const showSidebar = () => {
         setIsSidebarVisible(prevState => !prevState);
@@ -20,7 +28,7 @@ function Header() {
                         <li className={styles.hideOnMobile}><Link to="/news">News</Link></li>
                         <div className={styles.rightSide}>
                             <li className={styles.hideOnMobile}>
-                                {checkUserLoggedIn() 
+                                {isLoggedIn 
                                     ? <Link to="/profile" >{localStorage.getItem("username")}</Link>
                                     : <Link to="/login">Log in</Link>
                                 }

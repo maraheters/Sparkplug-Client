@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import CarCard from './CarCard';
-import { fetchPostings, Posting } from '../api/sparkplugApi';
-import styles from '../styles/CarList.module.scss';
+import CarCard from '../CarCard/CarCard';
+import { fetchPostings, Posting } from '../../api/sparkplugApi';
+import styles from './CarList.module.scss';
 
 function CarList() {
     const [postings, setPostings] = useState<Posting[]>([]);

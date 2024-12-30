@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Article, fetchNews } from '../api/newsApi';
-import ArticleCard from './ArticleCard';
-import styles from "../styles/NewsList.module.scss"
+import { Article, fetchNews } from '../../api/newsApi';
+import ArticleCard from '../ArticleCard/ArticleCard';
+import styles from "./NewsList.module.scss"
 
 const PAGE_SIZE = 50;
 

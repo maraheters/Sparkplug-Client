@@ -1,6 +1,6 @@
-import styles from "../styles/CarList.module.scss";
-import {Posting} from "../api/sparkplugApi.ts";
-import { formatPrice, formatMileageKm, formatDisplacement } from "../utils/utils.ts";
+import styles from "./CarCard.module.scss";
+import {Posting} from "../../api/sparkplugApi.ts";
+import { formatPrice, formatMileageKm, formatDisplacement } from "../../utils/utils.ts";
 import { Link } from "react-router-dom";
 
 type CarCardProps = {

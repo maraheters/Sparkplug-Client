@@ -1,0 +1,16 @@
+$accent-color: #dc3545;
+$background-color-darker: #fafafa;
+$background-color-darker-hover: #f0f0f0;
+
+.list {
+  list-style-type: none;
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: auto auto auto;
+  margin-top: 100px;
+  gap: 15px;
+}
+
+.link {
+    text-decoration: none;
+}

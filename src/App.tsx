@@ -3,35 +3,37 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import PostInfoPage from './pages/PostInfoPage'
 import News from './pages/News'
-import Upload from './pages/Upload'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import Upload from './pages/Upload/Upload'
+import Login from './pages/LoginRegister/Login'
+import Register from './pages/LoginRegister/Register'
 import Profile from './pages/Profile'
-import ProtectedRoute from './auth/ProtectedRoute'
-import { AuthProvider } from './auth/AuthContext'
+import AuthProvider, { AuthIsNotSignedIn, AuthIsSignedIn } from './auth/AuthContext'
+import Logout from './pages/Logout'
 
 function App() {
 
     return (
         <AuthProvider>
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/postings/:postingId" element={<PostInfoPage/>} />
-                <Route path="/news" element={<News/>} />
-                <Route path="/upload" element={<Upload/>} />
-                <Route path="/login" element={<Login/>} />
-                <Route path="/register" element={<Register/>} />
-                <Route 
-                    path="/profile" 
-                    element={
-                        // <ProtectedRoute>
-                            <Profile />
-                        // </ProtectedRoute>
-                    } 
-                />
-            </Routes>
-        </Router>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/news" element={<News />} />
+                    <Route path="/postings/:postingId" element={<PostInfoPage />} />
+                    
+                    {/* Protected Routes */}
+                    <Route element={<AuthIsSignedIn />}>
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/logout" element={<Logout />} />
+                        <Route path="/upload" element={<Upload />} />
+                    </Route>
+
+                    {/* Unprotected Routes */}
+                    <Route element={<AuthIsNotSignedIn />}>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                    </Route>
+                </Routes>
+            </Router>
         </AuthProvider>
     )
 }

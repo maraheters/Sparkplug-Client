@@ -1,42 +1,82 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { whoAmIRequest } from '../api/sparkplugApi';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
-interface AuthContextType {
-    isAuthenticated: boolean;
-    login: () => void;
-    logout: () => void;
+export enum AuthStatus {
+    Loading,
+    SignedIn,
+    SignedOut,
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export interface IAuth {
+    authStatus?: AuthStatus;
+    signIn?: any;
+    signOut?: any;
+}
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+const defaultState: IAuth = {
+    authStatus: AuthStatus.Loading,
+};
+  
+type Props = {
+    children?: React.ReactNode;
+};
 
+export const AuthContext = React.createContext(defaultState);
+
+export const AuthIsSignedIn = () => {
+    const { authStatus }: IAuth = useContext(AuthContext);
+    if (authStatus === AuthStatus.Loading) return null;
+    return authStatus === AuthStatus.SignedIn ? <Outlet /> : null;
+};
+
+export const AuthIsNotSignedIn = () => {
+    const { authStatus }: IAuth = useContext(AuthContext);
+    if (authStatus === AuthStatus.Loading) return null;
+    return authStatus === AuthStatus.SignedOut ? <Outlet /> : null;
+};
+
+const AuthProvider = ({ children }: Props) => {
+    const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
+  
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        setIsAuthenticated(isAuthenticated => isAuthenticated = !!token); // Check if token exists
-        console.log("Token found:", token);
-        console.log("Is Authenticated:", isAuthenticated);
-    }, []);
+        async function getWhoAmI() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                setAuthStatus(AuthStatus.SignedOut);
+                return;
+            }
+            try {
+                await whoAmIRequest(token);
+                setAuthStatus(AuthStatus.SignedIn);
+            } catch (e) {
+                setAuthStatus(AuthStatus.SignedOut);
+            }
+        }
 
-    const login = () => setIsAuthenticated(isAuthenticated => isAuthenticated = true);
-    const logout = () => {
-        setIsAuthenticated(false);
-        localStorage.removeItem('authToken');
-    };
-
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
-
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    console.log("useAuth");
-    console.log(context);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        getWhoAmI().then();
+    }, [setAuthStatus, authStatus]);
+  
+    function signIn() {
+        setAuthStatus(AuthStatus.SignedIn);
     }
-    return context;
-};
+  
+    function signOut() {
+        setAuthStatus(AuthStatus.SignedOut);
+    }
+  
+    const state: IAuth = {
+        authStatus,
+        signIn,
+        signOut,
+    };
+  
+    if (authStatus === AuthStatus.Loading) {
+        console.log('Loading');
+        return null;
+    }
+  
+    return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
+  };
+
+  export default AuthProvider;

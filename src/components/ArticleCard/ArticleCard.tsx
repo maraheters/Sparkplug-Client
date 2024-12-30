@@ -1,6 +1,6 @@
-import { Article } from "../api/newsApi";
-import styles from "../styles/NewsList.module.scss"
-import { formatDate } from "../utils/utils";
+import { Article } from "../../api/newsApi";
+import styles from "./ArticleCard.module.scss"
+import { formatDate } from "../../utils/utils";
 
 type ArticleCardProps = {
     article: Article

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header'; // Adjust the import based on your file structure
-import { fetchPostingsByCreatorId, Posting, User, whoAmIRequest } from '../api/sparkplugApi';
+import Header from '../components/Header/Header'; // Adjust the import based on your file structure
+import { fetchUser, User } from '../api/sparkplugApi';
 import { json, Link } from 'react-router-dom';
-import carListStyles from '../styles/CarList.module.scss'
-import CarCard from '../components/CarCard';
+import carListStyles from '../components/CarList/CarList.module.scss';
+import CarCard from '../components/CarCard/CarCard';
 
 function Profile() {
     const [loading, setLoading] = useState<boolean>(true);
-    const [userInfo, setUserInfo] = useState<User | null>(null); 
-    const [postings, setPostings] = useState<Posting[]>([]); 
+    const [userInfo, setUserInfo] = useState<User>(); 
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -20,28 +19,14 @@ function Profile() {
                 return;
             }
 
-            let userId: string | undefined;
             try {
-                const data = await whoAmIRequest(token); 
+                const data = await fetchUser(token); 
                 console.log(data);
                 setUserInfo(data);
-                userId = data.id;
             } catch (err: any) {
                 setError(err.message || "Failed to fetch user information");
             } finally {
                 setLoading(false);
-            }
-
-            if (userId) {
-                try {
-                    const data = await fetchPostingsByCreatorId(userId); 
-                    console.log(data);
-                    setPostings(data);
-                } catch (err: any) {
-                    setError(err.message || "Failed to fetch postings");
-                } finally {
-                    setLoading(false);
-                }
             }
         };
 
@@ -58,7 +43,7 @@ function Profile() {
         return <p>Error: {error}</p>;
     }
 
-    const carList = postings.map(posting => (
+    const carList = userInfo?.postings.map(posting => (
         <li key={posting.id}>
             <CarCard
                 posting={posting}
@@ -75,6 +60,7 @@ function Profile() {
                     <p><strong>Name:</strong> {userInfo.username}</p>
                     <p><strong>id:</strong> {userInfo.id}</p>
                     <ul className={`container ${carListStyles.list}`}>{carList}</ul>
+                    <button><Link to="/upload">Create a new posting</Link></button>
                     {/* Display other user information as needed */}
 
                     

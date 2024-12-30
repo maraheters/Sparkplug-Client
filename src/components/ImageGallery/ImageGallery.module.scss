@@ -1,3 +1,5 @@
+$accent-color: #dc3545;
+
 .gallery {
     max-width: 100%;
     padding: 0;
@@ -13,7 +15,7 @@
     overflow-x: auto; 
     gap: 5px; 
     max-width: 100%; 
-    scrollbar-width: none;
+    scrollbar-width:thin;
 
     img {
         width: 150px; 
