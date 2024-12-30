@@ -1,0 +1,126 @@
+$accent-color: #dc3545;
+$background-color: #ffffff;
+
+@mixin flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin clickable-text {
+    font-weight: bold;
+    color: $accent-color;
+    font-size: 1rem;
+    padding: 20px 10px;
+    height: 100%;
+    text-decoration: none;
+    &:hover {
+        transition: .1s ease-in;
+        scale: 105%;
+    }
+}
+
+.header__nav {
+    @include flex-row;
+    border-bottom: 1px solid $accent-color;
+    background-color: $background-color;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    width: 100%;
+
+    svg {
+        fill: $accent-color;
+    }
+} 
+
+.header__list{
+    @include flex-row;
+    list-style: none;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+    li {
+
+        a {
+            @include clickable-text;
+            display: flex;
+            align-items: center;
+        }
+
+    }
+
+    div {
+        margin-left: auto;
+    }
+}
+
+.header__logo {
+    font-family: "Leckerli One", cursive;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: $accent-color;
+    padding-right: 35px;
+}
+
+.header__sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 1001;
+    background-color: white;
+
+    ul {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        width: 100%;
+
+        li {
+            a {
+                @include clickable-text;
+                display: flex;
+                justify-content: flex-start;
+                padding: 20px 40px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.menuButton {
+    display: none;
+}
+
+
+@media (width <= 770px) {
+    .header__logo {
+        position: fixed;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hideOnMobile {
+        display: none;
+    }
+
+    .menuButton {
+        display: block;
+    }
+}
+
+@media (width <= 400px) {
+    .header__sidebar {
+        width: 100%;
+    }
+}

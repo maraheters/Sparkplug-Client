@@ -1,0 +1,35 @@
+.gallery {
+    max-width: 100%;
+    padding: 0;
+
+    &MainImage {
+        width: 100%;
+    }
+}
+
+.smallerImagesContainer {
+    display: flex;
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+    gap: 5px; 
+    max-width: 100%; 
+    scrollbar-width: none;
+
+    img {
+        width: 150px; 
+        height: auto;
+        margin: 0;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.gallerySmallerImage {
+    &:hover {
+        scale: 95%;
+        filter: opacity(60%);
+        transition: .15s ease-in;
+    }
+}
