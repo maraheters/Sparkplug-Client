@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import styles from './CarUploadForm.module.scss'
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './CarUploadForm.module.scss';
 import { Engine, Manufacturer, Transmission } from '../../api/sparkplugApi';
 
 export interface CarFormData {
@@ -44,10 +44,19 @@ const initialFormData: CarFormData = {
 
 interface Props {
     onChange: (data: CarFormData) => void;
+    initialData?: CarFormData;
 }
 
-const CarUploadForm: React.FC<Props> = ({onChange}) => {
+const CarUploadForm: React.FC<Props> = ({ onChange, initialData }) => {
     const [formData, setFormData] = useState<CarFormData>(initialFormData);
+    const initialDataSet = useRef(false);
+
+    useEffect(() => {
+        if (initialData && !initialDataSet.current) {
+            setFormData(initialData);
+            initialDataSet.current = true;
+        }
+    }, [initialData]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -69,11 +78,14 @@ const CarUploadForm: React.FC<Props> = ({onChange}) => {
             }));
         }
 
-        onChange(formData);
+        onChange({
+            ...formData,
+            [name]: value
+        });
     };
 
-    return(
-        <form className={ styles.form}>
+    return (
+        <form className={styles.form}>
             <h2>Car Data</h2>
             <div className={styles.formGroup}>
                 <label>Model:</label>
@@ -129,9 +141,9 @@ const CarUploadForm: React.FC<Props> = ({onChange}) => {
                 <input type="number" name="engine.displacement" value={formData.engine.displacement} onChange={handleChange} required />
             </div>
             <h3>Transmission Details</h3>
-                <div className={styles.formGroup}>
+            <div className={styles.formGroup}>
                 <label>Gearbox Type:</label>
-            <input type="text" name="transmission.gearboxType" value={formData.transmission.gearboxType} onChange={handleChange} required />
+                <input type="text" name="transmission.gearboxType" value={formData.transmission.gearboxType} onChange={handleChange} required />
             </div>
             <div className={styles.formGroup}>
                 <label>Number of Gears:</label>
@@ -148,6 +160,6 @@ const CarUploadForm: React.FC<Props> = ({onChange}) => {
             </div>
         </form>
     );
-}
+};
 
 export default CarUploadForm;

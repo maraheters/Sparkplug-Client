@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ImageUploader.module.scss';
 
 interface Props {
     onUpload: (images: File[]) => void;
+    initialImages?: File[];
 }
 
-const ImageUploader: React.FC<Props> = ({ onUpload }) => {
+const ImageUploader: React.FC<Props> = ({ onUpload, initialImages }) => {
     const [images, setImages] = useState<File[]>([]);
+
+    useEffect(() => {
+        if (initialImages) {
+            console.log('Initial images:', initialImages);
+            setImages(initialImages);
+        }
+    }, [initialImages]);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(event.target.files || []);

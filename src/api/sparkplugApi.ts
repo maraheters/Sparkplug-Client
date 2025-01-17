@@ -1,5 +1,4 @@
 
-const local = true;
 const API_URL = "http://localhost:8080"
 
 export type Engine = {
@@ -29,7 +28,7 @@ export type Car = {
     manufacturer: Manufacturer;
     color: string;
     description: string;
-    category: string;
+    categoryName: string;
     drivetrain: string
     engine: Engine;
     transmission: Transmission
@@ -47,13 +46,19 @@ export type Posting = {
 export type User = {
     id: string;
     username: string;
-    password: string;
     authority: string;
-    postings: Posting[];
+    postingIds: string[];
 }
 
-const whoAmIRequest = async (token: string): Promise<string> => {
-    const response = await fetch(`${API_URL}/users/authenticate`, {
+export type UserAuth = {
+    id: string;
+    username: string;
+    authority: string;
+    token: string;
+}
+
+const whoAmIRequest = async (token: string): Promise<UserAuth> => {
+    const response = await fetch(`${API_URL}/auth/authenticate`, {
         method: 'GET',
         headers: {
             'Authorization' : 'Bearer ' + token,
@@ -65,12 +70,12 @@ const whoAmIRequest = async (token: string): Promise<string> => {
         throw new Error(`${response.statusText}`);
     }
 
-    const data = await response.text();
+    const data = await response.json();
     return data;
 }
 
-const fetchUser = async (token: string): Promise<User> => {
-    const response = await fetch(`${API_URL}/users/credentials`, {
+const fetchCurrentUser = async (token: string): Promise<User> => {
+    const response = await fetch(`${API_URL}/users/me`, {
         method: 'GET',
         headers: {
             'Authorization' : 'Bearer ' + token,
@@ -104,7 +109,7 @@ const fetchPostingById = async (id: string): Promise<Posting> => {
 }
 
 const fetchPostingsByCreatorId = async (id: string): Promise<Posting[]> => {
-    const response = await fetch(`${API_URL}/postings/user/${id}`);
+    const response = await fetch(`${API_URL}/users/${id}/postings`);
     if (!response.ok) {
         throw new Error(`HTTP error: ${response.statusText}`);
     }
@@ -112,4 +117,123 @@ const fetchPostingsByCreatorId = async (id: string): Promise<Posting[]> => {
     return data;
 }
 
-export { fetchPostings, fetchPostingById, fetchUser, fetchPostingsByCreatorId, whoAmIRequest };
+const fetchPostingsByCreatorUsername = async (username: string): Promise<Posting[]> => {
+    const response = await fetch(`${API_URL}/users/${username}/postings`);
+    if (!response.ok) {
+        throw new Error(`HTTP error: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+}
+
+const fetchWishlist = async (token: string): Promise<Posting[]> => {
+    const response = await fetch(`${API_URL}/users/wishlist`, {
+        method: 'GET',
+        headers: {
+            'Authorization' : 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        }
+    });
+    
+    if(!response.ok) {
+        throw new Error(`${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+}
+
+const fetchImageByUrl = async (url: string): Promise<Blob> => {
+    const objectName = url.split('/').pop();
+    console.log(objectName);
+    const response = await fetch(`${API_URL}/postings/images?object-name=${objectName}`);
+
+    if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.blob();
+}
+
+const addToWishlist = async (token: string, postingId: string): Promise<string> => {
+    const response = await fetch(`${API_URL}/users/wishlist/${postingId}`, {
+        method: 'POST',
+        headers: {
+            'Authorization' : 'Bearer ' + token,
+        }
+    });
+
+    if(!response.ok) {
+        throw new Error(`${response.statusText}`);
+    }
+
+    const data = await response.text();
+    return data;
+}
+
+const uploadCar = async (token: string, formData: any): Promise<string> => {
+
+    const response = await fetch(`${API_URL}/postings`, {
+        method: 'POST',
+        headers: {
+            'Authorization' : 'Bearer ' + token,
+        },
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error(`${response.statusText}`);
+    }
+
+    const data = await response.text();
+    return data;
+}
+
+const updateCarByPostingId = async (token: string, id:string, formData: any): Promise<string> => {
+
+    const response = await fetch(`${API_URL}/postings/${id}/car`, {
+        method: 'PUT',
+        headers: {
+            'Authorization' : 'Bearer ' + token,
+        },
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error(`${response.statusText}`);
+    }
+
+    const data = await response.text();
+    return data;
+}
+
+const updateImagesByPostingId = async (token: string, id:string, formData: any): Promise<string> => {
+
+    const response = await fetch(`${API_URL}/postings/${id}/images`, {
+        method: 'PUT',
+        headers: {
+            'Authorization' : 'Bearer ' + token,
+        },
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error(`${response.statusText}`);
+    }
+
+    const data = await response.text();
+    return data;
+}
+
+export { 
+    fetchPostings, 
+    fetchPostingById, 
+    fetchCurrentUser, 
+    fetchPostingsByCreatorId, 
+    fetchPostingsByCreatorUsername, 
+    fetchImageByUrl,
+    whoAmIRequest, 
+    fetchWishlist, 
+    addToWishlist,
+    uploadCar,
+    updateCarByPostingId,
+    updateImagesByPostingId};

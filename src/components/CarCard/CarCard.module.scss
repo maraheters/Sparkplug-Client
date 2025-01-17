@@ -2,6 +2,7 @@ $accent-color: #dc3545;
 
 .card {
     width: 100%; 
+    max-width: 500px;
     padding: 0; 
     margin-bottom: 20px;
     height: 100%;
@@ -52,7 +53,7 @@ $accent-color: #dc3545;
         padding: 0;
         margin: 0;
         font-weight: lighter;
-        font-size: 14pt;
+        font-size: 1.2rem;
         text-align: left;
       }
     }
@@ -62,4 +63,9 @@ $accent-color: #dc3545;
       transition: 0.25s ease-in-out;
       // background-color: $background-color-darker-hover;
     }
-  }
+
+    .editLink{
+      font-size: 1.3rem;
+      color: $accent-color;
+    }
+}

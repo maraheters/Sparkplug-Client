@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 
 import styles from './Upload.module.scss';
+import { uploadCar } from "../../api/sparkplugApi";
 
 function Upload() {
     const [images, setImages] = useState<File[]>([]);
@@ -27,25 +28,17 @@ function Upload() {
         
         // Append images
         images.forEach((image) => {
-            formDataToSubmit.append('photos', image); 
+            formDataToSubmit.append('images', image); 
         });
     
         try {
-            const response = await fetch('http://localhost:8080/postings', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("authToken")}` 
-                    // No Content-Type header
-                },
-                body: formDataToSubmit,
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            const authToken = localStorage.getItem("authToken");
+            if (!authToken) {
+                throw new Error("No authentication token found");
             }
-    
-            const data = await response.text();
-            console.log('Car uploaded successfully:', data);
+            const response = await uploadCar(authToken, formDataToSubmit);
+
+            console.log('Car uploaded successfully:', response);
         } catch (error) {
             console.error('Error uploading car:', error);
         }

@@ -22,9 +22,13 @@ const Register: React.FC = () => {
             if (!response.ok) {
                 throw new Error('Registration failed');
             }
+            const data = await response.json();
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('userId', data.userId);
 
             console.log('Registration successful');
-            navigate('/login');
+            navigate('/');
         } catch (error) {
             console.error('Error registering:', error);
         }

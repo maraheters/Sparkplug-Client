@@ -13,7 +13,7 @@ const Login: React.FC = () => {
         setError(null); 
 
         try {
-            const response = await fetch(`http://localhost:8080/users/login?username=${username}&password=${password}`, {
+            const response = await fetch(`http://localhost:8080/auth/login?username=${username}&password=${password}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,9 +24,11 @@ const Login: React.FC = () => {
                 throw new Error('Login failed');
             }
 
-            const data = await response.text();
-            localStorage.setItem('authToken', data);
-            localStorage.setItem('username', username);
+            const data = await response.json();
+            localStorage.setItem('authToken', data.authToken);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('userId', data.id);
+
             console.log('Login successful:', data);
             navigate('/'); 
         } catch (error) {

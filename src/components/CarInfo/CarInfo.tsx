@@ -1,8 +1,8 @@
 // CarInfo.tsx
-import { Posting } from "../../api/sparkplugApi.ts";
+import { addToWishlist, Posting } from "../../api/sparkplugApi.ts";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import styles from "./CarInfo.module.scss"
-import { capitalize, formatDisplacement, formatMileageKm, formatPowerKwAndHp, formatPrice, formatTorqueNm } from "../../utils/utils.ts";
+import { capitalize, formatDisplacement, formatMileageKm, formatPowerKwAndHp, formatPrice } from "../../utils/utils.ts";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -30,7 +30,8 @@ const CarInfo = ({ posting }: Props) => {
 
                     <div className={styles.shareAndWishlistContainer}>
                         <button className={styles.shareButton}>Share</button>
-                        <button className={styles.wishlistButton}>Add to Wishlist</button>
+                        <button className={styles.wishlistButton}
+                            onClick={async () => await addToWishlist(localStorage.getItem('authToken') as string, posting.id)}>Add to Wishlist</button>
                     </div>
                     {car.color && <h3>{capitalize(car.color)}</h3>}
                     {car.category && <h3>{capitalize(car.category)}</h3>}

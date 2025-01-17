@@ -40,7 +40,7 @@ function CarList() {
     
 
     return (
-        <ul className={`container ${styles.list}`}>{carList}</ul>
+        <ul className={`${styles.list}`}>{carList}</ul>
     );
 }
 

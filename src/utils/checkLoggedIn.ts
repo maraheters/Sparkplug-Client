@@ -15,6 +15,7 @@ async function checkUserLoggedIn() {
     } catch (e) {
         localStorage.removeItem('authToken');
         localStorage.removeItem('username');
+        localStorage.removeItem('userId');
         return false;
     }
 
