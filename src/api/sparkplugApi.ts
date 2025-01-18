@@ -1,78 +1,7 @@
+import { Posting, User } from "./sparkplugModels";
 
 const API_URL = "http://localhost:8080"
 
-export type Engine = {
-    displacement: number;
-    power: number;
-    torque: number;
-    fuelType: string;
-    type: string;
-}
-
-export type Manufacturer = {
-    name: string,
-    country: string
-}
-
-export type Transmission = {
-    gearboxType: string,
-    numberOfGears: number
-}
-
-export type Car = {
-    id: string;
-    model: string;
-    price: number;
-    mileage: number;
-    year: number;
-    manufacturer: Manufacturer;
-    color: string;
-    description: string;
-    categoryName: string;
-    drivetrain: string
-    engine: Engine;
-    transmission: Transmission
-}
-
-export type Posting = {
-    id: string;
-    creationDate: Date;
-    creator: string;
-    creatorId: string;
-    car: Car;
-    images: string[];
-}
-
-export type User = {
-    id: string;
-    username: string;
-    authority: string;
-    postingIds: string[];
-}
-
-export type UserAuth = {
-    id: string;
-    username: string;
-    authority: string;
-    token: string;
-}
-
-const whoAmIRequest = async (token: string): Promise<UserAuth> => {
-    const response = await fetch(`${API_URL}/auth/authenticate`, {
-        method: 'GET',
-        headers: {
-            'Authorization' : 'Bearer ' + token,
-            'Content-Type': 'application/json',
-        }
-    });
-    
-    if(!response.ok) {
-        throw new Error(`${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
-}
 
 const fetchCurrentUser = async (token: string): Promise<User> => {
     const response = await fetch(`${API_URL}/users/me`, {
@@ -249,8 +178,6 @@ export {
     fetchCurrentUser, 
 
     fetchImageByUrl,
-
-    whoAmIRequest, 
 
     fetchWishlist, 
     addToWishlist,

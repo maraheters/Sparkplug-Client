@@ -1,5 +1,5 @@
 import styles from "./CarCard.module.scss";
-import { Posting } from "../../api/sparkplugApi.ts";
+import { Posting } from "../../api/sparkplugModels.ts";
 import { formatPrice, formatMileageKm, formatDisplacement } from "../../utils/utils.ts";
 import { Link } from "react-router-dom";
 import fallbackImage from "../../images/car-svgrepo-com.svg";
@@ -32,12 +32,12 @@ function CarCard({ posting, additionalComponents = [] }: CarCardProps) {
                     <p>{formatMileageKm(car.mileage)}</p>
                 </Link>
                 {/* Render additional components if provided */}
-                <div className={styles.additionalComponentsContainer}>
-                    {additionalComponents.map((Component, index) => (
-                        <div key={index} className={styles.additionalComponent}>{Component}</div>
-                    ))}
-                </div>
-
+                {additionalComponents.length > 0 && (
+                    <div className={styles.additionalComponentsContainer}>
+                        {additionalComponents.map((Component, index) => (
+                            <div key={index} className={styles.additionalComponent}>{Component}</div>
+                        ))}
+                    </div>)}
             </div>
         </div>
         

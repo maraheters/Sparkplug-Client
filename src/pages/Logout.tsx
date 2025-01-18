@@ -1,21 +1,12 @@
 import React, { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
 
 const Logout: React.FC = () => {
-    const navigate = useNavigate();
+    const {logoutUser} = useAuth();
 
     useEffect(() => {
-        const logout = async () => {
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('username');
-            localStorage.removeItem('userId');
-            toast('Logged out successfully');
-            navigate('/');
-        };
-
-        logout();
-    });
+        logoutUser();
+    },[]);
 
     return(<></>);
 };

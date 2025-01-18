@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import CarCard from '../CarCard/CarCard';
-import { fetchPostings, Posting } from '../../api/sparkplugApi';
+import { fetchPostings } from '../../api/sparkplugApi';
+import { Posting } from '../../api/sparkplugModels';
 import styles from './CarList.module.scss';
 import WishlistButton from '../WishlistButton/WishlistButton';
+import { useAuth } from '../../auth/AuthContext';
 
 function CarList() {
     const [postings, setPostings] = useState<Posting[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const {userAuth} = useAuth();
 
     useEffect(() => {
         const getCars = async () => {
@@ -30,7 +33,7 @@ function CarList() {
             <CarCard
                 posting={posting}
                 additionalComponents={[
-                    <WishlistButton postingId={posting.id} token={localStorage.getItem("authToken") as string} />
+                    <WishlistButton postingId={posting.id} token={userAuth?.authToken!} />
                 ]}
             />
         </li>

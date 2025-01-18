@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import Header from '../../components/Header/Header'; 
-import { fetchPostingById, fetchPostingsByCreatorUsername, fetchCurrentUser, fetchWishlist, Posting, User, removeFromWishlist } from '../../api/sparkplugApi';
+import { fetchPostingsByCreatorUsername, fetchCurrentUser, fetchWishlist } from '../../api/sparkplugApi';
 import { Link } from 'react-router-dom';
 import carListStyles from '../../components/CarList/CarList.module.scss';
 import CarCard from '../../components/CarCard/CarCard';
 import styles from './Profile.module.scss';
 import { handleRemoveFromWishlist } from '../../utils/wishlistHandlers';
+import { Posting, User } from '../../api/sparkplugModels';
+import { useAuth } from '../../auth/AuthContext';
 
 function Profile() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -13,29 +14,18 @@ function Profile() {
     const [postings, setPostings] = useState<Posting[]>([]);
     const [wishlist, setWishlist] = useState<Posting[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const {isLoggedIn, userAuth} = useAuth();
 
     useEffect(() => {
         const fetchUserInfo = async () => {
-            const token = localStorage.getItem("authToken");
-            const username = localStorage.getItem("username");
-            if (!token) {
-                setError("No authentication token found.");
-                setLoading(false);
-                return;
-            }
-
-            if(!username) {
-                setError("No username found.");
-                setLoading(false);
-                return;
-            }
+            isLoggedIn();
+            console.log(userAuth);
 
             try {
-                const data = await fetchCurrentUser(token); 
-                const postings = await fetchPostingsByCreatorUsername(username);
-                const wishlist = await fetchWishlist(token);
-                console.log(data);
-                console.log(postings);
+                const data = await fetchCurrentUser(userAuth?.authToken!); 
+                const postings = await fetchPostingsByCreatorUsername(userAuth?.username!);
+                const wishlist = await fetchWishlist(userAuth?.authToken!);
+                
                 setUserInfo(data);
                 setPostings(postings);
                 setWishlist(wishlist);
@@ -79,7 +69,7 @@ function Profile() {
                 additionalComponents={[
                     <button 
                         className={styles.removeFromWishlistButton}
-                        onClick={async () => { handleRemoveFromWishlist(localStorage.getItem("authToken") as string, posting.id); }}
+                        onClick={async () => { handleRemoveFromWishlist(userAuth?.authToken!, posting.id); }}
                     >Remove
                     </button>
                 ]}

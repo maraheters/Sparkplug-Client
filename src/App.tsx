@@ -9,17 +9,19 @@ import Login from './pages/LoginRegister/Login'
 import Register from './pages/LoginRegister/Register'
 import Profile from './pages/Profile/Profile'
 import UpdatePosting from './pages/UpdatePosting/UpdatePosting'
-import AuthProvider, { AuthIsNotSignedIn, AuthIsSignedIn } from './auth/AuthContext'
+import { AuthProvider } from './auth/AuthContext'
 import Logout from './pages/Logout'
 
 import {Toaster} from 'react-hot-toast'
 import Layout from './Layout'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 function App() {
 
     return (
-        <AuthProvider>
-            <Router>
+        <>
+        <Router>
+            <AuthProvider>
                 <Routes>
                     {/* Routes with standard layout */}
                     <Route path='/' element={<Layout />}> 
@@ -28,7 +30,7 @@ function App() {
                         <Route path="postings/:postingId" element={<PostInfoPage />} />
 
                         {/* Protected routes */}
-                        <Route element={<AuthIsSignedIn />}>
+                        <Route element={<ProtectedRoute />}>
                             <Route path="profile" element={<Profile />} />
                             <Route path="/upload" element={<Upload />} />
                             <Route path="edit-posting/:postingId" element={<UpdatePosting />} />
@@ -38,23 +40,23 @@ function App() {
                     {/* Routes without standard layout */}
                     
                     {/* Protected Routes */}
-                    <Route element={<AuthIsSignedIn />}>
+                    {/* <Route element={<AuthIsSignedIn />}> */}
                         <Route path="/logout" element={<Logout />} />
-                    </Route>
+                    {/* </Route> */}
 
                     {/* Unprotected Routes */}
-                    <Route element={<AuthIsNotSignedIn />}>
+                    {/* <Route element={<AuthIsNotSignedIn />}> */}
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                    </Route>
-                    
+                    {/* </Route> */}
+
                 </Routes>
-            </Router>
+            </AuthProvider>
+        </Router>
 
             <Toaster 
                 position='bottom-right'/>
-
-        </AuthProvider>
+        </>
     )
 }
 

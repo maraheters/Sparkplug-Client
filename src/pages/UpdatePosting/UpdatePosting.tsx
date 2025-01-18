@@ -3,9 +3,10 @@ import CarUploadForm, { CarFormData } from "../../components/CarUploadForm/CarUp
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 
 import styles from '../Upload/Upload.module.scss';
-import { Car, fetchImageByUrl, fetchPostingById, updateCarByPostingId, updateImagesByPostingId } from "../../api/sparkplugApi";
+import { fetchImageByUrl, fetchPostingById, updateCarByPostingId, updateImagesByPostingId } from "../../api/sparkplugApi";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Car } from "../../api/sparkplugModels";
 
 
 function UpdatePosting() {

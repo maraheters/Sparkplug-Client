@@ -1,94 +1,74 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { whoAmIRequest } from '../api/sparkplugApi';
-import { Outlet } from 'react-router-dom';
+import React, { createContext, useEffect, useState } from "react";
+import { UserAuth } from "../api/sparkplugModels";
+import { useNavigate } from "react-router-dom";
+import { loginRequest, registerRequest } from "../api/sparkplugAuthApi";
+import toast from "react-hot-toast";
 
-export enum AuthStatus {
-    Loading,
-    SignedIn,
-    SignedOut,
-}
-
-export interface IAuth {
-    authStatus?: AuthStatus;
-    signIn?: () => void;
-    signOut?: () => void;
-}
-
-const defaultState: IAuth = {
-    authStatus: AuthStatus.Loading,
-};
-  
-type Props = {
-    children?: React.ReactNode;
+type UserContextType = {
+    userAuth: UserAuth | null;
+    registerUser: (username: string, password: string) => void;
+    loginUser: (username: string, password: string) => void;
+    logoutUser: () => void;
+    isLoggedIn: () => boolean;
 };
 
-const AuthContext = React.createContext(defaultState);
+type Props = { children: React.ReactNode };
 
-export const AuthIsSignedIn = () => {
-    const { authStatus }: IAuth = useContext(AuthContext);
+const UserContext = createContext<UserContextType>({} as UserContextType);
 
-    if (authStatus === AuthStatus.Loading) 
-        return <div>Loading...</div>;
+export const AuthProvider = ({ children }: Props) => {
+    const navigate = useNavigate();
+    const [userAuth, setUser] = useState<UserAuth | null>(null);
+    const [isReady, setIsReady] = useState(false);
 
-    return authStatus === AuthStatus.SignedIn 
-        ? <Outlet /> 
-        : <div>Not signed in</div>;
-};
-
-export const AuthIsNotSignedIn = () => {
-    const { authStatus }: IAuth = useContext(AuthContext);
-
-    if (authStatus === AuthStatus.Loading) 
-        return <div>Loading...</div>;
-
-    return authStatus === AuthStatus.SignedOut 
-        ? <Outlet /> 
-        : <div>Bruh</div>;
-};
-
-const AuthProvider = ({ children }: Props) => {
-    const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
-  
     useEffect(() => {
-        async function getWhoAmI() {
-            const token = localStorage.getItem('authToken');
-            if (!token) {
-                setAuthStatus(AuthStatus.SignedOut);
-                return;
-            }
-            try {
-                await whoAmIRequest(token);
-                console.log('Signed in');
-                setAuthStatus(AuthStatus.SignedIn);
-            } catch (e) {
-                setAuthStatus(AuthStatus.SignedOut);
-                console.log('Failed to sign in');
-            }
+        const user = localStorage.getItem("userAuth");
+        if (user) {
+            setUser(JSON.parse(user));
         }
 
-        getWhoAmI().then();
-    }, [setAuthStatus, authStatus]);
-  
-    function signIn() {
-        setAuthStatus(AuthStatus.SignedIn);
+        setIsReady(true);
+    }, []);
+
+    const registerUser = async (username: string, password: string) => {
+        try{
+            const response = await registerRequest(username, password);
+            setUser(response);
+            localStorage.setItem("userAuth", JSON.stringify(response));
+            toast.success("Registered successfully!");
+            navigate("/");
+        } catch (error) {
+            toast.error("Failed to register.");
+        }
+    };   
+
+    const loginUser = async (username: string, password: string) => {
+        try{
+            const response = await loginRequest(username, password);
+            setUser(response);
+            localStorage.setItem("userAuth", JSON.stringify(response));
+            toast.success("Logged in successfully!");
+            navigate("/");
+        } catch (error) {
+            toast.error("Failed to login.");
+        }
+    }; 
+
+    const logoutUser = () => {
+        localStorage.removeItem("userAuth");
+        setUser(null);
+        navigate("/");
     }
-  
-    function signOut() {
-        setAuthStatus(AuthStatus.SignedOut);
+
+    const isLoggedIn = () => {
+        return !!userAuth;
     }
-  
-    const state: IAuth = {
-        authStatus,
-        signIn,
-        signOut,
-    };
-  
-    if (authStatus === AuthStatus.Loading) {
-        console.log('Loading');
-        return <div>Loading...</div>;
-    }
-  
-    return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
+
+    return (
+        <UserContext.Provider value={{ userAuth, registerUser, loginUser, logoutUser, isLoggedIn }}>
+            {isReady ? children : <p>Loading...</p>}
+        </UserContext.Provider>
+    );
 };
 
-export default AuthProvider;
+export const useAuth = () => React.useContext(UserContext);

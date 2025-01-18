@@ -8,10 +8,8 @@ async function handleAddToWishlist(token: string, postingId: string) {
     } catch(err: any) {
         console.error(err);
         toast.error(err.message || "Failed to add posting to wishlist");
-    }
-    
+    }   
 }
-
 
 async function handleRemoveFromWishlist(token: string, postingId: string) {
     try {
@@ -21,7 +19,6 @@ async function handleRemoveFromWishlist(token: string, postingId: string) {
         console.error(err);
         toast.error(err.message || "Failed to remove from wishlist");
     }
-    
 }
 
 export { handleAddToWishlist, handleRemoveFromWishlist };

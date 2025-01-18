@@ -11,6 +11,11 @@ $background-color-darker-hover: #f0f0f0;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
+
+    a {
+        text-decoration: none;
+        color: $accent-color;
+    }
 }
 
 .loginForm, .registerForm {

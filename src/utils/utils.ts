@@ -12,12 +12,12 @@ function formatDisplacement(displacement: number): string {
         : `${displacement.toFixed(1)}L`;
 }
 
-function formatPowerHp(power: number): string {
-    return `${(power*1.34102).toFixed(0)}`;
+function formatPowerKw(powerInHp: number): string {
+    return `${(powerInHp * 0.7457).toFixed(0)}`;
 }
 
-function formatPowerKwAndHp(power: number): string {
-    return `${power} kW (${formatPowerHp(power)} HP)`;
+function formatPowerHpAndKw(power: number): string {
+    return `${power} HP (${formatPowerKw(power)} kw)`;
 }
 
 function formatTorqueNm(torque: number): string {
@@ -41,8 +41,8 @@ export {
     formatPrice, 
     formatMileageKm, 
     formatDisplacement, 
-    formatPowerHp, 
-    formatPowerKwAndHp, 
+    formatPowerKw, 
+    formatPowerHpAndKw, 
     formatTorqueNm, 
     formatDate, 
     capitalize,

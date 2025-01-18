@@ -1,8 +1,10 @@
 // CarInfo.tsx
-import { addToWishlist, Posting } from "../../api/sparkplugApi.ts";
+import { addToWishlist } from "../../api/sparkplugApi.ts";
+import { Posting } from "../../api/sparkplugModels.ts";
+
 import ImageGallery from "../ImageGallery/ImageGallery";
 import styles from "./CarInfo.module.scss"
-import { capitalize, formatDisplacement, formatMileageKm, formatPowerKwAndHp, formatPrice } from "../../utils/utils.ts";
+import { capitalize, formatDisplacement, formatMileageKm, formatPowerHpAndKw, formatPrice } from "../../utils/utils.ts";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -74,7 +76,7 @@ const CarInfo = ({ posting }: Props) => {
                         <dd>{engine.fuelType}</dd>
 
                         <dt>Max Power</dt>
-                        <dd>{formatPowerKwAndHp(engine.power)}</dd>
+                        <dd>{formatPowerHpAndKw(engine.power)}</dd>
 
                         <dt>Max Torque</dt>
                         <dd>{engine.torque} Nm</dd>

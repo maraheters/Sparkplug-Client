@@ -1,5 +1,5 @@
 
-const local = true;
+
 const API_URL = "aaa"
 
 export type Article = {
