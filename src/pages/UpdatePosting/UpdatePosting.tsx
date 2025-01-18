@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import CarUploadForm, { CarFormData } from "../../components/CarUploadForm/CarUploadForm";
-import Header from "../../components/Header/Header";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 
 import styles from '../Upload/Upload.module.scss';
 import { Car, fetchImageByUrl, fetchPostingById, updateCarByPostingId, updateImagesByPostingId } from "../../api/sparkplugApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 function UpdatePosting() {
     const { postingId } = useParams<{ postingId: string }>();
     const [images, setImages] = useState<File[]>([]);
     const [formData, setFormData] = useState<CarFormData>();
-    const authToken = localStorage.getItem('authToken');
+    const navigate = useNavigate();
 
+    const authToken = localStorage.getItem('authToken');
+    
     useEffect(() => {
         const fetchData = async () => {
             const posting = await fetchPostingById(postingId as string);
@@ -70,7 +72,8 @@ function UpdatePosting() {
             }
             const response = await updateCarByPostingId(authToken, postingId as string, formDataToSubmit);
             console.log('Car updated successfully:', response);
-
+            toast.success('Car updated successfully');
+            navigate(`/postings/${postingId}`);
         } catch (error) {
             console.error('Error uploading car:', error);
         }
@@ -96,8 +99,7 @@ function UpdatePosting() {
 
     return (
         <>
-            <Header/>
-            <div className={`container ${styles.formAndImageUploaderContainer}`}>
+            <div className={styles.formAndImageUploaderContainer}>
                 <CarUploadForm onChange={handleFormDataChange} initialData={formData}/>
                 <ImageUploader onUpload={handleImageUpload} initialImages={images}/>
                 <button onClick={handleCarInfoSubmit}>Submit Car Info Changes</button>

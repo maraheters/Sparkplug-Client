@@ -36,7 +36,6 @@ function PostInfoPage() {
 
     return (
         <>
-            <Header></Header>
             <CarInfo posting={posting} />
         </>
     );

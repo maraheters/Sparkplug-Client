@@ -170,6 +170,22 @@ const addToWishlist = async (token: string, postingId: string): Promise<string> 
     return data;
 }
 
+const removeFromWishlist = async (token: string, postingId: string): Promise<string> => {
+    const response = await fetch(`${API_URL}/users/wishlist/${postingId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization' : 'Bearer ' + token,
+        }
+    });
+
+    if(!response.ok) {
+        throw new Error(`${response.statusText}`);
+    }
+
+    const data = await response.text();
+    return data;
+}
+
 const uploadCar = async (token: string, formData: any): Promise<string> => {
 
     const response = await fetch(`${API_URL}/postings`, {
@@ -227,13 +243,19 @@ const updateImagesByPostingId = async (token: string, id:string, formData: any):
 export { 
     fetchPostings, 
     fetchPostingById, 
-    fetchCurrentUser, 
     fetchPostingsByCreatorId, 
     fetchPostingsByCreatorUsername, 
+
+    fetchCurrentUser, 
+
     fetchImageByUrl,
+
     whoAmIRequest, 
+
     fetchWishlist, 
     addToWishlist,
+    removeFromWishlist,
+    
     uploadCar,
     updateCarByPostingId,
     updateImagesByPostingId};

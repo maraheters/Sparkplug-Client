@@ -10,8 +10,8 @@ export enum AuthStatus {
 
 export interface IAuth {
     authStatus?: AuthStatus;
-    signIn?: any;
-    signOut?: any;
+    signIn?: () => void;
+    signOut?: () => void;
 }
 
 const defaultState: IAuth = {
@@ -22,18 +22,28 @@ type Props = {
     children?: React.ReactNode;
 };
 
-export const AuthContext = React.createContext(defaultState);
+const AuthContext = React.createContext(defaultState);
 
 export const AuthIsSignedIn = () => {
     const { authStatus }: IAuth = useContext(AuthContext);
-    if (authStatus === AuthStatus.Loading) return null;
-    return authStatus === AuthStatus.SignedIn ? <Outlet /> : null;
+
+    if (authStatus === AuthStatus.Loading) 
+        return <div>Loading...</div>;
+
+    return authStatus === AuthStatus.SignedIn 
+        ? <Outlet /> 
+        : <div>Not signed in</div>;
 };
 
 export const AuthIsNotSignedIn = () => {
     const { authStatus }: IAuth = useContext(AuthContext);
-    if (authStatus === AuthStatus.Loading) return null;
-    return authStatus === AuthStatus.SignedOut ? <Outlet /> : null;
+
+    if (authStatus === AuthStatus.Loading) 
+        return <div>Loading...</div>;
+
+    return authStatus === AuthStatus.SignedOut 
+        ? <Outlet /> 
+        : <div>Bruh</div>;
 };
 
 const AuthProvider = ({ children }: Props) => {
@@ -48,9 +58,11 @@ const AuthProvider = ({ children }: Props) => {
             }
             try {
                 await whoAmIRequest(token);
+                console.log('Signed in');
                 setAuthStatus(AuthStatus.SignedIn);
             } catch (e) {
                 setAuthStatus(AuthStatus.SignedOut);
+                console.log('Failed to sign in');
             }
         }
 
@@ -73,10 +85,10 @@ const AuthProvider = ({ children }: Props) => {
   
     if (authStatus === AuthStatus.Loading) {
         console.log('Loading');
-        return null;
+        return <div>Loading...</div>;
     }
   
     return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
-  };
+};
 
-  export default AuthProvider;
+export default AuthProvider;

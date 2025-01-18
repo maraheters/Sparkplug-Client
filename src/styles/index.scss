@@ -1,5 +1,6 @@
 $background-color: #242424;
 $background-color: #ffffff;
+$accent-color: #dc3545;
 
 
 *, *::before, *::after {
@@ -27,7 +28,16 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     max-width: 1350px;
     margin: 0 auto; 
+}
+
+.margin-top {
+    margin-top: 100px;
+}
+
+p {
+  font-weight: 400;
+  text-align: center;
 }

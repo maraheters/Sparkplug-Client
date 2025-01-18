@@ -1,14 +1,16 @@
 import { useState } from "react";
 import CarUploadForm, { CarFormData } from "../../components/CarUploadForm/CarUploadForm";
-import Header from "../../components/Header/Header";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 
 import styles from './Upload.module.scss';
 import { uploadCar } from "../../api/sparkplugApi";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function Upload() {
     const [images, setImages] = useState<File[]>([]);
     const [formData, setFormData] = useState<CarFormData>();
+    const navigate = useNavigate();
 
     const handleImageUpload = (uploadedImages: File[]) => {
         setImages(uploadedImages);
@@ -39,19 +41,22 @@ function Upload() {
             const response = await uploadCar(authToken, formDataToSubmit);
 
             console.log('Car uploaded successfully:', response);
+            toast.success('Car uploaded successfully');
+            navigate("/");
         } catch (error) {
             console.error('Error uploading car:', error);
+            toast.error('Error uploading car');
         }
+
     };
 
     return (
         <>
-        <Header/>
-        <div className={`container ${styles.formAndImageUploaderContainer}`}>
-            <CarUploadForm onChange={handleFormDataChange}/>
-            <ImageUploader onUpload={handleImageUpload}/>
-            <button onClick={handleSubmit}>Submit</button>
-        </div>
+            <div className={styles.formAndImageUploaderContainer}>
+                <CarUploadForm onChange={handleFormDataChange}/>
+                <ImageUploader onUpload={handleImageUpload}/>
+                <button onClick={handleSubmit}>Submit</button>
+            </div>
         </>
 
     );

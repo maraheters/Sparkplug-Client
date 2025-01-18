@@ -43,7 +43,7 @@ input {
     }
 }
 
-button {
+.submitButton {
     background-color: $accent-color;
     width: 100%;
     color: white;
@@ -61,20 +61,9 @@ button {
     }
 }
 
-h2 {
+.heading {
     color: $accent-color;
     font-size: 2rem;
     font-weight: 400;
     margin-bottom: 10px;
-}
-
-p {
-    font-weight: 400;
-    text-align: center;
-}
-
-a {
-    font-weight: 600;
-    text-decoration: none;
-    color: $accent-color;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CarCard from '../CarCard/CarCard';
 import { fetchPostings, Posting } from '../../api/sparkplugApi';
 import styles from './CarList.module.scss';
+import WishlistButton from '../WishlistButton/WishlistButton';
 
 function CarList() {
     const [postings, setPostings] = useState<Posting[]>([]);
@@ -28,6 +29,9 @@ function CarList() {
         <li key={posting.id}>
             <CarCard
                 posting={posting}
+                additionalComponents={[
+                    <WishlistButton postingId={posting.id} token={localStorage.getItem("authToken") as string} />
+                ]}
             />
         </li>
     ));
@@ -40,7 +44,7 @@ function CarList() {
     
 
     return (
-        <ul className={`${styles.list}`}>{carList}</ul>
+        <ul className={styles.list}>{carList}</ul>
     );
 }
 

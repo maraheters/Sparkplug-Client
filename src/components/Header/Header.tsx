@@ -21,7 +21,7 @@ function Header() {
     return (
         <header>
             <nav className={styles.header__nav}>
-                <div className={`container`}>
+                <div className="container">
                     <ul className={styles.header__list}>
                         <li className={styles.header__logo}>sparkplug</li>
                         <li className={styles.hideOnMobile}><Link to="/">Home</Link></li>

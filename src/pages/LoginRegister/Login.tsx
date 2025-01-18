@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './LoginRegister.module.scss'
+import toast from 'react-hot-toast';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -31,6 +32,7 @@ const Login: React.FC = () => {
 
             console.log('Login successful:', data);
             navigate('/'); 
+            toast("Welcome");
         } catch (error) {
             console.error('Error logging in:', error);
             setError('Invalid username or password. Please try again.');
@@ -40,7 +42,7 @@ const Login: React.FC = () => {
     return (
         <div className={styles.loginFormContainer}>
         <form className={styles.loginForm} onSubmit={handleSubmit}>
-            <h2>Sign in</h2>
+            <h2 className={styles.heading}>Sign in</h2>
             <div>
                 <input 
                     type="text" 
@@ -59,7 +61,7 @@ const Login: React.FC = () => {
                     required 
                 />
             </div>
-            <button type="submit">Login</button>
+            <button className={styles.submitButton} type="submit">Login</button>
             <p>Don't have an account? <Link to="/register">Register here</Link></p>
         </form>
         {error && <div className={styles.error}>{error}</div>} 

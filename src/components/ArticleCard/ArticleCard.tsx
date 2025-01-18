@@ -9,16 +9,16 @@ type ArticleCardProps = {
 function ArticleCard({article}: ArticleCardProps) {
 
     return(
-    <div className={styles.card}>
-        <img src={article.urlToImage}></img>
-        <div className={styles.descriptionContainer}>
-            <a href={article.url}>
-                <h1>{article.title}</h1>    
-                <p className={styles.source}>{article.source.name}</p>
-                <p>{formatDate(article.publishedAt)}</p>
-            </a>
+        <div className={styles.card}>
+            <img src={article.urlToImage}></img>
+            <div className={styles.descriptionContainer}>
+                <a href={article.url}>
+                    <h1>{article.title}</h1>    
+                    <p className={styles.source}>{article.source.name}</p>
+                    <p>{formatDate(article.publishedAt)}</p>
+                </a>
+            </div>
         </div>
-    </div>
     )
 }
 

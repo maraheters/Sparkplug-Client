@@ -15,7 +15,7 @@ const CarInfo = ({ posting }: Props) => {
     const transmission = car.transmission;
 
     return (
-        <div className={`container ${styles.carInfo}`}>
+        <div className={styles.carInfoContainer}>
             <div className={styles.galleryAndQuickInfo}>
                 <div className={styles.gallery}>
                     <ImageGallery imageUrls={posting.images} />
@@ -34,7 +34,7 @@ const CarInfo = ({ posting }: Props) => {
                             onClick={async () => await addToWishlist(localStorage.getItem('authToken') as string, posting.id)}>Add to Wishlist</button>
                     </div>
                     {car.color && <h3>{capitalize(car.color)}</h3>}
-                    {car.category && <h3>{capitalize(car.category)}</h3>}
+                    {car.categoryName && <h3>{capitalize(car.categoryName)}</h3>}
                     {engine && engine.displacement != null && <h3>{formatDisplacement(engine.displacement)} {engine.type}</h3>}
                     {engine && engine.fuelType && <h3>{capitalize(engine.fuelType)}</h3>}
                     {transmission && transmission.gearboxType && <h3>{capitalize(transmission.gearboxType)}</h3>}

@@ -1,8 +1,10 @@
 $accent-color: #dc3545;
 
 .card {
+    display: flex;
+    flex-direction: column;
     width: 100%; 
-    max-width: 500px;
+    max-width: 400px;
     padding: 0; 
     margin-bottom: 20px;
     height: 100%;
@@ -26,6 +28,8 @@ $accent-color: #dc3545;
     }
   
     .descriptionContainer {
+      display: flex;
+      flex-direction: column;
       color: #000;
       margin: 0; 
       flex: 1; 
@@ -41,6 +45,7 @@ $accent-color: #dc3545;
       h2 {
         font-weight: bold;
         font-size: 1.6rem;
+        color: $accent-color;
         margin-bottom: 0;
       }
   
@@ -57,15 +62,20 @@ $accent-color: #dc3545;
         text-align: left;
       }
     }
+
+    .additionalComponentsContainer {
+      margin-top:auto;
+      margin-bottom: 10px;
+    }
     
+    .link {
+      text-decoration: none;
+      color: inherit;
+    }
+
     &:hover {
       scale: 101%;
       transition: 0.25s ease-in-out;
       // background-color: $background-color-darker-hover;
-    }
-
-    .editLink{
-      font-size: 1.3rem;
-      color: $accent-color;
     }
 }

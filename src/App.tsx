@@ -1,5 +1,6 @@
 // import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 import Home from './pages/Home/Home'
 import PostInfoPage from './pages/PostInfoPage'
 import News from './pages/News'
@@ -11,22 +12,34 @@ import UpdatePosting from './pages/UpdatePosting/UpdatePosting'
 import AuthProvider, { AuthIsNotSignedIn, AuthIsSignedIn } from './auth/AuthContext'
 import Logout from './pages/Logout'
 
+import {Toaster} from 'react-hot-toast'
+import Layout from './Layout'
+
 function App() {
 
     return (
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/news" element={<News />} />
-                    <Route path="/postings/:postingId" element={<PostInfoPage />} />
+                    {/* Routes with standard layout */}
+                    <Route path='/' element={<Layout />}> 
+                        <Route index element={<Home />} />
+                        <Route path="news" element={<News />} />
+                        <Route path="postings/:postingId" element={<PostInfoPage />} />
+
+                        {/* Protected routes */}
+                        <Route element={<AuthIsSignedIn />}>
+                            <Route path="profile" element={<Profile />} />
+                            <Route path="/upload" element={<Upload />} />
+                            <Route path="edit-posting/:postingId" element={<UpdatePosting />} />
+                        </Route>
+                    </Route>
+
+                    {/* Routes without standard layout */}
                     
                     {/* Protected Routes */}
                     <Route element={<AuthIsSignedIn />}>
-                        <Route path="/profile" element={<Profile />} />
                         <Route path="/logout" element={<Logout />} />
-                        <Route path="/upload" element={<Upload />} />
-                        <Route path="/edit-posting/:postingId" element={<UpdatePosting />} />
                     </Route>
 
                     {/* Unprotected Routes */}
@@ -34,8 +47,13 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                     </Route>
+                    
                 </Routes>
             </Router>
+
+            <Toaster 
+                position='bottom-right'/>
+
         </AuthProvider>
     )
 }
