@@ -6,10 +6,12 @@ import styles from './Upload.module.scss';
 import { uploadCar } from "../../api/sparkplugApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function Upload() {
     const [images, setImages] = useState<File[]>([]);
     const [formData, setFormData] = useState<CarFormData>();
+    const {userAuth} = useAuth();
     const navigate = useNavigate();
 
     const handleImageUpload = (uploadedImages: File[]) => {
@@ -34,11 +36,8 @@ function Upload() {
         });
     
         try {
-            const authToken = localStorage.getItem("authToken");
-            if (!authToken) {
-                throw new Error("No authentication token found");
-            }
-            const response = await uploadCar(authToken, formDataToSubmit);
+            console.log(formData);
+            const response = await uploadCar(userAuth?.authToken!, formDataToSubmit);
 
             console.log('Car uploaded successfully:', response);
             toast.success('Car uploaded successfully');

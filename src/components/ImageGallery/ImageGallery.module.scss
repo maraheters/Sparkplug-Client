@@ -1,4 +1,4 @@
-$accent-color: #dc3545;
+@use '../../styles/colors.scss' as *;
 
 .gallery {
     max-width: 100%;
@@ -29,6 +29,8 @@ $accent-color: #dc3545;
 }
 
 .gallerySmallerImage {
+    
+
     &:hover {
         scale: 95%;
         filter: opacity(60%);

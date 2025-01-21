@@ -15,11 +15,11 @@ function Header( {profileButton}: props ) {
 
     return (
         <header>
-            <nav className={styles.header__nav}>
+            <nav className={`box-shadow-centered ${styles.header__nav}`}>
                 <div className="container">
                     <ul className={styles.header__list}>
                         <li className={styles.header__logo}>sparkplug</li>
-                        <li className={styles.hideOnMobile}><Link to="/">Home</Link></li>
+                        <li className={styles.hideOnMobile}><Link className='sliding-hover' to="/">Home</Link></li>
                         <li className={styles.hideOnMobile}><Link to="/news">News</Link></li>
                         <div className={styles.rightSide}>
                             <li className={styles.hideOnMobile}>

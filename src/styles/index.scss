@@ -1,7 +1,4 @@
-$background-color: #242424;
-$background-color: #ffffff;
-$accent-color: #dc3545;
-
+@use './colors.scss' as *;
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -14,12 +11,13 @@ body {
 }
 
 :root {
+
   font-family: system-ui;
   font-weight: bold;
   line-height: 1.5;
   font-size: 16px;
 
-  background-color: $background-color;
+  background-color: $background-color-darker;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -38,6 +36,6 @@ body {
 }
 
 p {
-  font-weight: 400;
-  text-align: center;
+	font-weight: 400;
+	text-align: center;
 }

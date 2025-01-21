@@ -4,7 +4,7 @@ import { fetchPostings } from '../../api/sparkplugApi';
 import { Posting } from '../../api/sparkplugModels';
 import styles from './CarList.module.scss';
 import WishlistButton from '../WishlistButton/WishlistButton';
-import { useAuth } from '../../auth/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 function CarList() {
     const [postings, setPostings] = useState<Posting[]>([]);
@@ -32,9 +32,8 @@ function CarList() {
         <li key={posting.id}>
             <CarCard
                 posting={posting}
-                additionalComponents={[
-                    <WishlistButton postingId={posting.id} token={userAuth?.authToken!} />
-                ]}
+                additionalComponents={
+                    [<WishlistButton postingId={posting.id}/>]}
             />
         </li>
     ));

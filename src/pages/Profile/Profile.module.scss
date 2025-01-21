@@ -1,16 +1,37 @@
-$accent-color: #dc3545;
+@use '../../styles/colors.scss' as *;
 
-.profileContainer {
-    margin-top: 80px;
+.profileContainer{
+    h1 {
+        text-align: left;
+        font-size: 2.3rem;
+        margin: 20px 0;
+    }
 }
 
 .editLink{
     font-size: 1.3rem;
     color: $accent-color;
+    text-decoration: none;
 }
 
-h1 {
-    text-align: left;
-    font-size: 2.3rem;
-    margin: 20px 0;
+.postingHeadingAndLink {
+    display: flex;
+    align-items: center;
+    
+    .separator {
+        margin: 0 10px; 
+        font-size: 2.3rem; 
+    }
+
+    a {
+        font-size: 2.3rem;
+        color: $accent-color;
+        text-decoration: none;
+        
+        &:hover {
+            text-decoration: underline; 
+        }
+    }
+    
 }
+

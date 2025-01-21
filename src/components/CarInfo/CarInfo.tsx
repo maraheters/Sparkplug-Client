@@ -1,29 +1,31 @@
 // CarInfo.tsx
-import { addToWishlist } from "../../api/sparkplugApi.ts";
 import { Posting } from "../../api/sparkplugModels.ts";
 
 import ImageGallery from "../ImageGallery/ImageGallery";
 import styles from "./CarInfo.module.scss"
 import { capitalize, formatDisplacement, formatMileageKm, formatPowerHpAndKw, formatPrice } from "../../utils/utils.ts";
 import { Link } from "react-router-dom";
+import { useWishlist } from "../../context/WishlistContext.tsx";
 
 type Props = {
     posting: Posting;
 };
 
 const CarInfo = ({ posting }: Props) => {
+    const { addToWishlist} = useWishlist();
+
     const car = posting.car;
     const engine = car.engine;
     const transmission = car.transmission;
 
     return (
-        <div className={styles.carInfoContainer}>
+        <div className={`box-shadow ${styles.carInfoContainer}`}>
             <div className={styles.galleryAndQuickInfo}>
                 <div className={styles.gallery}>
                     <ImageGallery imageUrls={posting.images} />
                 </div>
                 <div className={styles.quickInfo}>
-                    <div className={styles.headings}>
+                    <div className={styles.headingsContainer}>
                         <h1 className={styles.mainHeading}>{car.year} {car.manufacturer.name} {car.model}</h1>
                         <h2 className={styles.price}>{formatPrice(car.price)}</h2>
                         <h2 className={styles.mileage}>{formatMileageKm(car.mileage)}</h2>
@@ -33,13 +35,17 @@ const CarInfo = ({ posting }: Props) => {
                     <div className={styles.shareAndWishlistContainer}>
                         <button className={styles.shareButton}>Share</button>
                         <button className={styles.wishlistButton}
-                            onClick={async () => await addToWishlist(localStorage.getItem('authToken') as string, posting.id)}>Add to Wishlist</button>
+                            onClick={async () => await addToWishlist(posting.id)}>Add to Wishlist</button>
                     </div>
-                    {car.color && <h3>{capitalize(car.color)}</h3>}
-                    {car.categoryName && <h3>{capitalize(car.categoryName)}</h3>}
-                    {engine && engine.displacement != null && <h3>{formatDisplacement(engine.displacement)} {engine.type}</h3>}
-                    {engine && engine.fuelType && <h3>{capitalize(engine.fuelType)}</h3>}
-                    {transmission && transmission.gearboxType && <h3>{capitalize(transmission.gearboxType)}</h3>}
+
+                    <div className={styles.carDetailsContainer}>
+                        {car.color && <h3>{capitalize(car.color)}</h3>}
+                        {car.categoryName && <h3>{capitalize(car.categoryName)}</h3>}
+                        {engine && engine.displacement != null && <h3>{formatDisplacement(engine.displacement)} {engine.type}</h3>}
+                        {engine && engine.fuelType && <h3>{capitalize(engine.fuelType)}</h3>}
+                        {transmission && transmission.gearboxType && <h3>{capitalize(transmission.gearboxType)}</h3>}
+                    </div>
+
                 </div>
             </div>   
 

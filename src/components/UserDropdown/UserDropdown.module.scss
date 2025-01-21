@@ -1,0 +1,64 @@
+@use '../../styles/colors.scss' as *;
+
+.container {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    font-size: .9rem;
+    display: none;
+    position: absolute;
+    margin-top: 10px;
+    padding: 10px;
+    min-width: max-content;
+    background-color: $background-color;
+    border: 1px solid $accent-color;
+    box-shadow: 4px 4px $box-shadow-color;
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translateX(-50%); /* Сдвиг влево на 50% своей ширины */
+    z-index: 1;
+
+    &::before{
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: -10px;
+        left: 50%;
+        margin-left: -10px;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent $accent-color transparent;
+    }
+
+    a {
+        color: black;
+        padding: 5px 5px;
+        text-decoration: none;
+        display: block;
+        font-weight: 500;
+
+        &:hover {
+            transform: scale(1.01);
+            transition: .25s ease;
+        }
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+
+.container:hover .content {
+    display: flex;
+    flex-direction: column;
+}
+
+

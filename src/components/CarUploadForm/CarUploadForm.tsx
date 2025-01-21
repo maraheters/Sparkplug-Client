@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './CarUploadForm.module.scss';
-import { Engine, Manufacturer, Transmission } from '../../api/sparkplugApi';
+import { Engine, Manufacturer, Transmission } from '../../api/sparkplugModels';
 
 export interface CarFormData {
     engine: Engine;

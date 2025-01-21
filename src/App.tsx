@@ -9,12 +9,13 @@ import Login from './pages/LoginRegister/Login'
 import Register from './pages/LoginRegister/Register'
 import Profile from './pages/Profile/Profile'
 import UpdatePosting from './pages/UpdatePosting/UpdatePosting'
-import { AuthProvider } from './auth/AuthContext'
+import { AuthProvider } from './context/AuthContext'
 import Logout from './pages/Logout'
 
 import {Toaster} from 'react-hot-toast'
 import Layout from './Layout'
-import ProtectedRoute from './auth/ProtectedRoute'
+import ProtectedRoute from './ProtectedRoute'
+import { WishlistProvider } from './context/WishlistContext'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <>
         <Router>
             <AuthProvider>
+            <WishlistProvider>
                 <Routes>
                     {/* Routes with standard layout */}
                     <Route path='/' element={<Layout />}> 
@@ -51,11 +53,34 @@ function App() {
                     {/* </Route> */}
 
                 </Routes>
+            </WishlistProvider>
             </AuthProvider>
         </Router>
 
             <Toaster 
-                position='bottom-right'/>
+                position='bottom-right'
+                toastOptions={{
+                    className: '',
+                    style: {
+                        border: '1px solid var(--accent-color)',
+                        padding: '16px',
+                        color: 'black',
+                        borderRadius: '0',
+                        boxShadow: '4px 4px var(--box-shadow)'
+                    },
+                    error: {
+                        iconTheme: {
+                            primary: 'var(--accent-color)',
+                            secondary: 'white',
+                        },
+                    },
+                    success: {
+                        iconTheme: {
+                            primary: 'white',
+                            secondary: 'var(--accent-color)',
+                        },
+                    },
+                  }}/>
         </>
     )
 }

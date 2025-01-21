@@ -1,4 +1,4 @@
-$accent-color: #dc3545;
+@use '../../styles/colors.scss' as *;
 
 .card {
     display: flex;
@@ -8,7 +8,7 @@ $accent-color: #dc3545;
     padding: 0; 
     margin-bottom: 20px;
     height: 100%;
-    // background-color: $background-color-darker;
+    background-color: $background-color;
     // border-radius: 15px;
     border: 1px solid $accent-color;
   
@@ -19,63 +19,60 @@ $accent-color: #dc3545;
     }
   
     img {
-      width: 100%; 
-      height: auto; 
-      aspect-ratio: 5/3;
-      object-fit: cover;
-      
-      // border-radius: 15px 15px 0 0;
+		width: 100%; 
+		height: auto; 
+		aspect-ratio: 5/3;
+		object-fit: cover;
     }
   
     .descriptionContainer {
-      display: flex;
-      flex-direction: column;
-      color: #000;
-      margin: 0; 
-      flex: 1; 
-      padding-left: 20px;
-      padding-right: 20px;
-      
-      &:hover {
-        cursor: pointer;
-        color: $accent-color;
-        transition: .25s ease-in;
-      }
-      
-      h2 {
-        font-weight: bold;
-        font-size: 1.6rem;
-        color: $accent-color;
-        margin-bottom: 0;
-      }
-  
-      h3 {
-          display: inline;
-          margin-top: 0;
-      }
-      
-      p {
-        padding: 0;
-        margin: 0;
-        font-weight: lighter;
-        font-size: 1.2rem;
-        text-align: left;
-      }
+		display: flex;
+		flex-direction: column;
+		color: #000;
+		margin: 0; 
+		flex: 1; 
+		padding-left: 20px;
+		padding-right: 20px;
+		
+		&:hover {
+			cursor: pointer;
+			color: $accent-color;
+			transition: .25s ease-in;
+		}
+		
+		h2 {
+			font-weight: bold;
+			font-size: 1.6rem;
+			color: $accent-color;
+			margin-bottom: 0;
+		}
+	
+		h3 {
+			display: inline;
+			margin-top: 0;
+		}
+		
+		p {
+			padding: 0;
+			margin: 0;
+			font-weight: lighter;
+			font-size: 1.2rem;
+			text-align: left;
+		}
     }
 
     .additionalComponentsContainer {
-      margin-top:auto;
-      margin-bottom: 10px;
+		margin-top:auto;
+		margin-bottom: 10px;
     }
     
     .link {
-      text-decoration: none;
-      color: inherit;
+		text-decoration: none;
+		color: inherit;
     }
 
     &:hover {
-      scale: 101%;
-      transition: 0.25s ease-in-out;
-      // background-color: $background-color-darker-hover;
+		scale: 101%;
+		transition: 0.25s ease-in-out;
     }
 }

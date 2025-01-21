@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import carListStyles from '../../components/CarList/CarList.module.scss';
 import CarCard from '../../components/CarCard/CarCard';
 import styles from './Profile.module.scss';
-import { handleRemoveFromWishlist } from '../../utils/wishlistHandlers';
 import { Posting, User } from '../../api/sparkplugModels';
-import { useAuth } from '../../auth/AuthContext';
+import { useAuth } from '../../context/AuthContext';
+import WishlistButton from '../../components/WishlistButton/WishlistButton';
 
 function Profile() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -67,11 +67,7 @@ function Profile() {
             <CarCard
                 posting={posting}
                 additionalComponents={[
-                    <button 
-                        className={styles.removeFromWishlistButton}
-                        onClick={async () => { handleRemoveFromWishlist(userAuth?.authToken!, posting.id); }}
-                    >Remove
-                    </button>
+                    <WishlistButton postingId={posting.id}/>
                 ]}
             />
         </li>
@@ -80,13 +76,19 @@ function Profile() {
     return (
         <>
             <div className={styles.profileContainer}>
-                <button><Link to="/upload">Create a new posting</Link></button>
-                {postings.length > 0 && (
-                    <div className={styles.postingsSection}>
+                
+                
+                <div className={styles.postingsSection}>
+                    <div className={styles.postingHeadingAndLink}>
                         <h1>Your postings</h1>
-                        <ul className={carListStyles.list}>{carList}</ul>
+                        <span className={styles.separator}>|</span>
+                        <Link to="/upload">Upload new</Link>
                     </div>
-                )}
+                    {postings.length > 0 && (
+                        <ul className={carListStyles.list}>{carList}</ul>
+                    )}
+                </div>
+                
 
                 {wishlist.length > 0 && (
                     <div className={styles.postingsSection}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './LoginRegister.module.scss'
-import { useAuth } from '../../auth/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState('');

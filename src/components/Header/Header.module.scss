@@ -1,5 +1,4 @@
-$accent-color: #dc3545;
-$background-color: #ffffff;
+@use '../../styles/colors.scss' as *;
 
 @mixin flex-row {
     display: flex;
@@ -10,9 +9,9 @@ $background-color: #ffffff;
     font-weight: bold;
     color: $accent-color;
     font-size: 1rem;
-    padding: 20px 10px;
-    height: 100%;
+    margin: 0 10px;
     text-decoration: none;
+
     &:hover {
         transition: .1s ease-in;
         scale: 105%;
@@ -21,7 +20,7 @@ $background-color: #ffffff;
 
 .header__nav {
     @include flex-row;
-    border-bottom: 2px solid $accent-color;
+    border-bottom: 1px solid $accent-color;
     background-color: $background-color;
     position: fixed;
     top: 0;
@@ -29,10 +28,9 @@ $background-color: #ffffff;
     justify-content: center;
     z-index: 1000;
     width: 100%;
+    min-height: 60px;
 
-    svg {
-        fill: $accent-color;
-    }
+
 } 
 
 .header__list{

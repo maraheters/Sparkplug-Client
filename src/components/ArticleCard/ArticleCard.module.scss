@@ -1,6 +1,4 @@
-$accent-color: #dc3545;
-$background-color-darker: #fafafa;
-$background-color-darker-hover: #f0f0f0;
+@use '../../styles/colors.scss' as *;
 
 .card {
     width: 100%; 

@@ -1,6 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import Header from "./components/Header/Header";
-import { useAuth } from "./auth/AuthContext";
+import { useAuth } from "./context/AuthContext";
+import Footer from "./components/Footer/Footer";
+import UserDropdown from "./components/UserDropdown/UserDropdown";
 
 function Layout() {
     const {isLoggedIn, userAuth} = useAuth();
@@ -9,7 +11,7 @@ function Layout() {
         <>
         <Header 
             profileButton={ isLoggedIn()
-                ? <Link to="/profile">{userAuth?.username}</Link>
+                ? <UserDropdown/>
                 : <Link to="/login">Log in</Link>
             }
         />
@@ -18,7 +20,7 @@ function Layout() {
             <Outlet />
         </main>
 
-        <footer>2025</footer>
+        <Footer/>
         </>
     );
 }

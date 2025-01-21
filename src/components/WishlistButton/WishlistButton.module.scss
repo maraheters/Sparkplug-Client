@@ -1,11 +1,10 @@
 $accent-color: #dc3545;
 
-.wishlistButton {
-    font-size: 1.3rem;
+
+.wishlistButtonRemove, .wishlistButtonAdd {
+    font-size: 1.5rem;
     color: $accent-color;
     background: none;
     border: none;
-    font-size: 1.3rem;
     font-weight: bold;
-    
 }

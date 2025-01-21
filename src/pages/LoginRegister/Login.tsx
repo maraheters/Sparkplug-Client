@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './LoginRegister.module.scss'
-import { useAuth } from '../../auth/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');

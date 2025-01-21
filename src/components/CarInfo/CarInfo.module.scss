@@ -1,9 +1,8 @@
-$background-color-darker: #fafafa;
-$accent-color: #dc3545;
+@use '../../styles/colors.scss' as *;
 
 .carInfoContainer {
     justify-content: center;
-    // background-color: $background-color-darker;
+    background-color: $background-color;
     border: 1px solid $accent-color;
     padding: 20px;
 }
@@ -13,45 +12,6 @@ $accent-color: #dc3545;
     grid-template-columns: 4fr 3fr; 
     column-gap: 40px;
 
-    .gallery {
-        max-width: 100%; 
-        overflow: hidden; 
-        margin-bottom: 40px;
-    }
-
-    .headings {
-        h1, h2, h3 {
-            margin: 0;
-            padding: 0;
-            font-size: 2rem;
-            // font-size: 24pt;
-        }
-
-        .mainHeading {
-            // font-size: 32pt;
-            font-size: 2.8rem;
-            margin: 0;
-        }
-        
-        .price {
-            margin-top: 0;
-            font-size: 2.4rem;
-            color: $accent-color;
-        }
-
-        .mileage {
-            margin-top: 0;
-            font-weight: lighter;
-            
-        }
-
-        h2 {
-            margin: 0;
-        }
-
-        margin-bottom: 32px;
-    }
-
     h3 {
         font-weight: lighter;
         font-size: 1.5rem;
@@ -59,13 +19,69 @@ $accent-color: #dc3545;
     }
 }
 
+.gallery {
+    max-width: 100%; 
+    overflow: hidden; 
+    margin-bottom: 40px;
+}
+
+.headingsContainer {
+    h1, h2, h3 {
+        margin: 0;
+        padding: 0;
+        font-size: 2rem;
+    }
+
+    .mainHeading {
+        font-size: 2.8rem;
+        margin: 0;
+    }
+    
+    .price {
+        margin-top: 0;
+        font-size: 2.4rem;
+        color: $accent-color;
+    }
+
+    .mileage {
+        margin-top: 0;
+        font-weight: lighter;
+        
+    }
+
+    .owner {
+        margin: 0;
+
+        a {
+            text-decoration: none;
+            color: $accent-color;
+        }
+    }
+
+    margin-bottom: 32px;
+}
+
 .shareAndWishlistContainer {
-    display: flex;  
+    display: grid;  
+    grid-template-columns: 1fr 1fr;
     gap: 20px;  
+    padding-bottom: 20px;
+    border-bottom: 2px solid $accent-color;
 
     button {
-        padding: 10px;
+        padding: 15px;
         margin: 0;
+        font-size: 1.3rem;
+        border: none;
+        border-radius: 0;
+        color: white;
+        background-color: $accent-color;
+
+        &:hover {
+            transform: scale(1.01);
+            transition: .25s ease;
+            cursor: pointer;
+        }
     }
 }
 
@@ -75,7 +91,6 @@ $accent-color: #dc3545;
     max-width: fit-content;
 
     &Section {
-        // border-top: 1px solid black;
 
         h3 {
             margin-bottom: 0;
@@ -121,7 +136,7 @@ $accent-color: #dc3545;
             margin-bottom: 40px;
         }
     
-        .headings {
+        .headingsContainer {
             h1, h2, h3 {
                 font-size: 1rem;
             }
