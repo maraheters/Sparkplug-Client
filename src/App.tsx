@@ -16,6 +16,8 @@ import {Toaster} from 'react-hot-toast'
 import Layout from './Layout'
 import ProtectedRoute from './ProtectedRoute'
 import { WishlistProvider } from './context/WishlistContext'
+import Chats from './pages/Chats/Chats'
+import { StompSessionProvider } from 'react-stomp-hooks'
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
         <Router>
             <AuthProvider>
             <WishlistProvider>
+            <StompSessionProvider
+                url='http://localhost:8080/ws'>
                 <Routes>
                     {/* Routes with standard layout */}
                     <Route path='/' element={<Layout />}> 
@@ -34,7 +38,8 @@ function App() {
                         {/* Protected routes */}
                         <Route element={<ProtectedRoute />}>
                             <Route path="profile" element={<Profile />} />
-                            <Route path="/upload" element={<Upload />} />
+                            <Route path="upload" element={<Upload />} />
+                            <Route path="chats" element={<Chats/>} />
                             <Route path="edit-posting/:postingId" element={<UpdatePosting />} />
                         </Route>
                     </Route>
@@ -53,6 +58,7 @@ function App() {
                     {/* </Route> */}
 
                 </Routes>
+            </StompSessionProvider>
             </WishlistProvider>
             </AuthProvider>
         </Router>

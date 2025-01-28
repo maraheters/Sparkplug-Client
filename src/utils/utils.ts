@@ -33,6 +33,13 @@ function formatDate(dateString: string): string {
     return `${year}.${month}.${day}`;
 }
 
+function formatDateTime(date: Date): string {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+}
+
 function capitalize(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -45,5 +52,6 @@ export {
     formatPowerHpAndKw, 
     formatTorqueNm, 
     formatDate, 
+    formatDateTime,
     capitalize,
 };

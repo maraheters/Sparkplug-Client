@@ -4,18 +4,17 @@ import { fetchPostings } from '../../api/sparkplugApi';
 import { Posting } from '../../api/sparkplugModels';
 import styles from './CarList.module.scss';
 import WishlistButton from '../WishlistButton/WishlistButton';
-import { useAuth } from '../../context/AuthContext';
 
 function CarList() {
     const [postings, setPostings] = useState<Posting[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const {userAuth} = useAuth();
 
     useEffect(() => {
         const getCars = async () => {
             try {
                 const data = await fetchPostings();
+                console.log(data);
                 setPostings(data);
             } catch (error: any) {
                 console.error("Error fetching cars:", error.message); 

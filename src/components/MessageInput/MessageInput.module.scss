@@ -1,0 +1,33 @@
+@use '../../styles/colors.scss' as *;
+
+.messageInputContainer {
+    // border-top: 1px solid $accent-color;
+    background-color: white;
+    display: flex;
+    max-width: 100%;
+
+    button {
+        font-size: 1.3rem;
+        padding: 0;
+        background: none;
+        border: none;
+        border-radius: 3px;
+        align-self: flex-end;
+        margin: 10px;
+        cursor: pointer;
+
+        &:hover {
+            scale: 1.1;
+            transition: .25s ease;
+        }
+    }
+}
+
+.messageInput {
+    width: 100%;
+    max-width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+}

@@ -14,11 +14,10 @@ function Profile() {
     const [postings, setPostings] = useState<Posting[]>([]);
     const [wishlist, setWishlist] = useState<Posting[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const {isLoggedIn, userAuth} = useAuth();
+    const {userAuth} = useAuth();
 
     useEffect(() => {
         const fetchUserInfo = async () => {
-            isLoggedIn();
             console.log(userAuth);
 
             try {

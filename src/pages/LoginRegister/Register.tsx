@@ -17,7 +17,7 @@ const Register: React.FC = () => {
     return (
         <div className={styles.registerFormContainer}>
         <form className={styles.registerForm} onSubmit={handleSubmit}>
-            <h2>Register</h2>
+            <h2 className={styles.heading}>Register</h2>
             <div>
                 <input 
                     type="text" 

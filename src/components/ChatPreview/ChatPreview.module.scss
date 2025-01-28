@@ -1,0 +1,43 @@
+@use '../../styles/colors.scss' as *;
+
+
+.chatPreviewContainer {
+    display: flex;
+    // border-bottom: 1px solid $accent-color;
+    padding: 10px;
+    min-width: 20vw;
+    max-width: 30vw;
+
+    figure {
+        min-width: 50px;              
+        min-height: 50px;    
+        max-width: 50px;        
+        max-height: 50px;
+        overflow: hidden;          
+        display: flex;             
+        justify-content: center;   
+        align-items: center;       
+    }
+    
+    img {
+        width: 100%;              
+        height: auto;             
+        max-height: 100%;         
+        object-fit: cover;        
+    }
+}
+
+.nameAndContentContainer {
+    margin-left: 20px;
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        text-align: left;
+    }   
+}

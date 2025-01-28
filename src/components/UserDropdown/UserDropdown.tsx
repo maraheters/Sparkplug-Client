@@ -10,6 +10,7 @@ export default function UserDropdown() {
             <Link to='/profile' className={styles.user}>{ userAuth?.username }</Link>       
             <div className={styles.content}>
                 <div><Link to='/profile'>Profile</Link></div>
+                <div><Link to='/chats'>Messages</Link></div>
                 <div><Link to='/logout' >Log out</Link></div>
             </div>
         </div>

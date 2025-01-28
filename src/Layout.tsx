@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import UserDropdown from "./components/UserDropdown/UserDropdown";
 
 function Layout() {
-    const {isLoggedIn, userAuth} = useAuth();
+    const {isLoggedIn} = useAuth();
     
     return (
         <>

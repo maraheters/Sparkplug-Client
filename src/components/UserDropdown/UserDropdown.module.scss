@@ -16,6 +16,7 @@
     min-width: max-content;
     background-color: $background-color;
     border: 1px solid $accent-color;
+    border-radius: 5px;
     box-shadow: 4px 4px $box-shadow-color;
     left: 50%; /* Центрирование по горизонтали */
     transform: translateX(-50%); /* Сдвиг влево на 50% своей ширины */

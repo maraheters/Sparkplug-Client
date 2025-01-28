@@ -20,11 +20,15 @@ const whoAmIRequest = async (token: string): Promise<UserAuth> => {
 };
 
 const registerRequest = async (username: string, password: string): Promise<UserAuth> => {
-    const response = await fetch(`${API_URL}/register?username=${username}&password=${password}`, {
+    const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+            "username": username,
+            "password": password
+        })
     });
 
     if (!response.ok) {
@@ -35,11 +39,15 @@ const registerRequest = async (username: string, password: string): Promise<User
 };
 
 const loginRequest = async (username: string, password: string): Promise<UserAuth> => {
-    const response = await fetch(`${API_URL}/login?username=${username}&password=${password}`, {
+    const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+            "username": username,
+            "password": password
+        })
     });
 
     if (!response.ok) {

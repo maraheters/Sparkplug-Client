@@ -1,0 +1,33 @@
+@use '../../styles/colors.scss' as *;
+
+.chatContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.chatNameContainer {
+
+    h1 {
+        margin: 15px 20px;
+        margin-bottom: 5px;
+        padding-bottom: 15px;
+        font-size: 1.5rem;
+        border-bottom: 1px solid $black-color;
+    }
+
+    box-shadow: 0 5px 3px $background-color-darker;
+}
+
+.messagesContainer {
+    z-index: 0;
+    flex: 1; 
+    overflow-y: auto; 
+
+
+}
+
+.inputContainer {
+    width: 100%;
+    max-height: fit-content;
+}

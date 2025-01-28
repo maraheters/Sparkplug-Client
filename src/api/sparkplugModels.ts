@@ -53,3 +53,18 @@ export type UserAuth = {
     authority: string;
     authToken: string;
 }
+
+export type Message = {
+    senderId: string;
+    senderUsername: string;
+    content: string;
+    createdAt: Date;
+    read: boolean;
+}
+
+export type ChatWithMessages = {
+    chatId: string;
+    postingId: string;
+    chatName: string;
+    messages: Message[];
+}

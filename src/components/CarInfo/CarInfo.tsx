@@ -6,6 +6,8 @@ import styles from "./CarInfo.module.scss"
 import { capitalize, formatDisplacement, formatMileageKm, formatPowerHpAndKw, formatPrice } from "../../utils/utils.ts";
 import { Link } from "react-router-dom";
 import { useWishlist } from "../../context/WishlistContext.tsx";
+import { useState } from "react";
+import MessageWindow from "../MessageWindow/MessageWindow.tsx";
 
 type Props = {
     posting: Posting;
@@ -13,12 +15,19 @@ type Props = {
 
 const CarInfo = ({ posting }: Props) => {
     const { addToWishlist} = useWishlist();
+    const [isMsgWindowVisible, setIsMsgWindowVisible] = useState(false);
+
+    const handleMsgWindowToggle = () => {
+        setIsMsgWindowVisible(!isMsgWindowVisible);
+    }
 
     const car = posting.car;
     const engine = car.engine;
     const transmission = car.transmission;
 
+
     return (
+        <>
         <div className={`box-shadow ${styles.carInfoContainer}`}>
             <div className={styles.galleryAndQuickInfo}>
                 <div className={styles.gallery}>
@@ -32,8 +41,11 @@ const CarInfo = ({ posting }: Props) => {
                         <h2 className={styles.owner}>Owner: <Link to={`/users/${posting.creatorId}`}>{posting.creator}</Link></h2>
                     </div>
 
-                    <div className={styles.shareAndWishlistContainer}>
-                        <button className={styles.shareButton}>Share</button>
+                    <div className={styles.contactAndWishlistContainer}>
+                        <button 
+                            className={styles.contactButton}
+                            onClick={() => {handleMsgWindowToggle()}}
+                            >Contact owner</button>
                         <button className={styles.wishlistButton}
                             onClick={async () => await addToWishlist(posting.id)}>Add to Wishlist</button>
                     </div>
@@ -108,6 +120,12 @@ const CarInfo = ({ posting }: Props) => {
                 
             </div>
         </div>
+        
+        {isMsgWindowVisible && ( //создать отдельный компонент, также создать отдельный компонент для формы отправки сообщения
+            <MessageWindow posting={posting} onClose={handleMsgWindowToggle}/>
+        )}
+
+        </>
     );
 }
 

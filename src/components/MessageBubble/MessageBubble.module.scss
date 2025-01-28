@@ -1,0 +1,24 @@
+@use '../../styles/colors.scss' as *;
+
+.messageBubbleContainer {
+    background-color: $background-color;
+    color: $black-color;
+
+    max-width: 30vw;
+    width: fit-content;
+    margin: 5px 30px;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+
+    p {
+        text-align: left;
+    }
+}
+
+.current {
+    background: $black-color;
+    p {
+        color: white;
+    }
+}

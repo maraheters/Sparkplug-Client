@@ -1,4 +1,5 @@
 @use '../../styles/colors.scss' as *;
+@use '../../styles/mixins.scss' as *;
 
 @mixin flex-row {
     display: flex;
@@ -14,13 +15,15 @@
 
     &:hover {
         transition: .1s ease-in;
-        scale: 105%;
+        // scale: 105%;
+        color: $complementary-color;
     }
 }
 
 .header__nav {
     @include flex-row;
-    border-bottom: 1px solid $accent-color;
+    // @include box-shadow-centered;
+    border-bottom: 1px solid $black-color;
     background-color: $background-color;
     position: fixed;
     top: 0;

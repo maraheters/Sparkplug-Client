@@ -3,9 +3,10 @@
 .footer {
     min-height: 60px;
     max-height: 120px;
-    border-top: 2px solid $accent-color;
     padding: 20px 0;
     margin-top: 20px;
+    background-color: $background-color;
+    border-top: 2px solid $black-color;
 }
 
 .logo {
