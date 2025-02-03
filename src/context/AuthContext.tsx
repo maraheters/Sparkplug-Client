@@ -55,9 +55,10 @@ export const AuthProvider = ({ children }: Props) => {
     }; 
 
     const logoutUser = () => {
-        localStorage.removeItem("userAuth");
+        localStorage.clear();
         setUser(null);
         navigate("/");
+        location.reload();
     }
 
     const isLoggedIn = () => {

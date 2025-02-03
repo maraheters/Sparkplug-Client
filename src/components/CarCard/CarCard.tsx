@@ -28,7 +28,7 @@ function CarCard({ posting, additionalComponents = [] }: CarCardProps) {
                         {car.engine && <h3>{formatDisplacement(car.engine.displacement)} {car.engine.type}</h3>}
                         {car.transmission && <h3>, {car.transmission.gearboxType}</h3>}
                     </div>
-                    <p>{formatPrice(car.price)}</p>
+                    <p>{formatPrice(posting.price)}</p>
                     <p>{formatMileageKm(car.mileage)}</p>
                 </Link>
                 {/* Render additional components if provided */}

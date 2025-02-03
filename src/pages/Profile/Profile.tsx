@@ -7,6 +7,7 @@ import styles from './Profile.module.scss';
 import { Posting, User } from '../../api/sparkplugModels';
 import { useAuth } from '../../context/AuthContext';
 import WishlistButton from '../../components/WishlistButton/WishlistButton';
+import fallbackImage from '../../images/car-svgrepo-com.svg';
 
 function Profile() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -76,6 +77,17 @@ function Profile() {
     return (
         <>
             <div className={styles.profileContainer}>
+                <div className={styles.profileOverviewSection}>
+                    <figure> 
+                        {userInfo?.profilePicture 
+                            ? (<img className={styles.profilePicture} src={userInfo?.profilePicture} onError={(e) => (e.currentTarget.src = fallbackImage)}></img>)
+                            : (<img className={styles.profilePicture} src={fallbackImage} ></img>)}
+                    </figure>
+                    <div className={styles.usernameAndEdit}>
+                        <h1>{userInfo?.username}</h1>
+                        <h4><Link to="/profile/edit">Edit profile</Link></h4>
+                    </div>
+                </div>
                 
                 
                 <div className={styles.postingsSection}>

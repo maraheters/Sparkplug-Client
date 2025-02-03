@@ -6,10 +6,11 @@ interface TextAreaProps {
     placeholder?: string;
     value: string;
     onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    onKeyDown: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     label?: string;
   }
   
-  export function Textarea({ placeholder = '', value = '', onChange, label }: TextAreaProps) {
+  export function Textarea({ placeholder = '', value = '', onKeyDown, onChange, label }: TextAreaProps) {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     useAutosizeTextArea(textAreaRef.current, value);
   
@@ -25,6 +26,7 @@ interface TextAreaProps {
           id="textarea-id"
           className={styles.textarea}
           onChange={onChange}
+          onKeyDown={onKeyDown}
           placeholder={placeholder}
           value={value}
           rows={1} // Start with one row

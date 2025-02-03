@@ -72,9 +72,8 @@ const fetchWishlist = async (token: string): Promise<Posting[]> => {
 }
 
 const fetchImageByUrl = async (url: string): Promise<Blob> => {
-    const objectName = url.split('/').pop();
-    console.log(objectName);
-    const response = await fetch(`${API_URL}/postings/images?object-name=${objectName}`);
+    
+    const response = await fetch(url);
 
     if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -169,6 +168,20 @@ const updateImagesByPostingId = async (token: string, id:string, formData: any):
     return data;
 }
 
+const updateProfilePicture = async (token: string, formData: any): Promise<void> => {
+    const response = await fetch(`${API_URL}/users/profile-picture`, {
+        method: 'PUT',
+        headers: {
+            'Authorization' : 'Bearer ' + token,
+        },
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error(`${response.statusText}`);
+    }
+}
+
 export { 
     fetchPostings, 
     fetchPostingById, 
@@ -185,4 +198,7 @@ export {
     
     uploadCar,
     updateCarByPostingId,
-    updateImagesByPostingId};
+    updateImagesByPostingId,
+
+    updateProfilePicture
+};

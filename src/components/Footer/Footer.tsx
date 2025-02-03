@@ -4,7 +4,7 @@ function Footer() {
 
     return(
         <footer className={styles.footer}>
-            <p className={styles.logo}>sparkplug</p>
+            <p className={styles.logo}>🚀sparkplug</p>
             <p>© 2025 Sparkplug, Inc. All rights reserved.</p>
         </footer>
     )

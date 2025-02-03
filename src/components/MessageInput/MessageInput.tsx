@@ -18,12 +18,22 @@ function MessageInput({onSubmit}: Props) {
         }
     };
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        // Check if Ctrl + Enter is pressed
+        if (event.ctrlKey && event.key === 'Enter') {
+            event.preventDefault(); // Prevent default action (like a new line)
+            handleSend(); // Send the message
+        }
+    };
+
     return (
         <div className={styles.messageInputContainer}>
             <Textarea
                 placeholder='Message'
                 value={message}
                 onChange={e => setMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
+                
             ></Textarea>
             <button onClick={handleSend} >
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width='30px' height='30px' viewBox="0 0 792.68 726.84">

@@ -18,6 +18,8 @@ import ProtectedRoute from './ProtectedRoute'
 import { WishlistProvider } from './context/WishlistContext'
 import Chats from './pages/Chats/Chats'
 import { StompSessionProvider } from 'react-stomp-hooks'
+import { ChatsProvider } from './context/ChatsContext'
+import ProfileEdit from './pages/ProfileEdit/ProfileEdit'
 
 function App() {
 
@@ -26,8 +28,8 @@ function App() {
         <Router>
             <AuthProvider>
             <WishlistProvider>
-            <StompSessionProvider
-                url='http://localhost:8080/ws'>
+            <StompSessionProvider url='http://localhost:8080/ws'>
+            <ChatsProvider>
                 <Routes>
                     {/* Routes with standard layout */}
                     <Route path='/' element={<Layout />}> 
@@ -38,26 +40,20 @@ function App() {
                         {/* Protected routes */}
                         <Route element={<ProtectedRoute />}>
                             <Route path="profile" element={<Profile />} />
+                            <Route path="profile/edit" element={<ProfileEdit />} />
                             <Route path="upload" element={<Upload />} />
                             <Route path="chats" element={<Chats/>} />
                             <Route path="edit-posting/:postingId" element={<UpdatePosting />} />
                         </Route>
                     </Route>
 
-                    {/* Routes without standard layout */}
-                    
-                    {/* Protected Routes */}
-                    {/* <Route element={<AuthIsSignedIn />}> */}
-                        <Route path="/logout" element={<Logout />} />
-                    {/* </Route> */}
-
-                    {/* Unprotected Routes */}
-                    {/* <Route element={<AuthIsNotSignedIn />}> */}
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                    {/* </Route> */}
-
+                    {/* Routes without standard layout */} 
+                    <Route path="/logout" element={<Logout />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                   
                 </Routes>
+            </ChatsProvider>
             </StompSessionProvider>
             </WishlistProvider>
             </AuthProvider>

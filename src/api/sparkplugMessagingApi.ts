@@ -54,7 +54,7 @@ async function sendMessage(token: string, chatId:string, message:string): Promis
     }
 
     const data = await response.json();
-    return new Date(data.timestamp);
+    return new Date(data);
 }
 
 export {

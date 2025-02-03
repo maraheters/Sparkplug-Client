@@ -6,12 +6,52 @@
         font-size: 2.3rem;
         margin: 20px 0;
     }
+
+    a {
+        color: $accent-color;
+        text-decoration: none;
+        
+        &:hover {
+            color: $complementary-color;
+            transition: .2s ease;
+        }
+    }
 }
 
 .editLink{
     font-size: 1.3rem;
     color: $accent-color;
     text-decoration: none;
+}
+
+.profileOverviewSection {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $black-color;
+
+    .profilePicture {
+        max-width: 150px;
+        max-height: 150px;
+        min-width: 150px;
+        min-height: 150px;
+        border-radius: 100%;
+    }
+
+    .usernameAndEdit {
+        margin-left: 50px;
+
+        h1 {
+            font-size: 6rem;
+            line-height: 1;
+            margin: 0;
+        }
+
+        h4 {
+            font-size: 1.8rem;
+        }
+    }
 }
 
 .postingHeadingAndLink {
@@ -25,12 +65,6 @@
 
     a {
         font-size: 2.3rem;
-        color: $accent-color;
-        text-decoration: none;
-        
-        &:hover {
-            text-decoration: underline; 
-        }
     }
     
 }

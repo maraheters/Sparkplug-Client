@@ -3,10 +3,14 @@
 
 .chatPreviewContainer {
     display: flex;
-    // border-bottom: 1px solid $accent-color;
+    cursor: pointer;
     padding: 10px;
     min-width: 20vw;
     max-width: 30vw;
+
+    &:hover {
+        background-color: $background-color-darker;
+    }
 
     figure {
         min-width: 50px;              
@@ -25,6 +29,10 @@
         max-height: 100%;         
         object-fit: cover;        
     }
+}
+
+.selected {
+    background-color: $background-color-darker;
 }
 
 .nameAndContentContainer {

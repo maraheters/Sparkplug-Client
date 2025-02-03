@@ -36,7 +36,7 @@ const CarInfo = ({ posting }: Props) => {
                 <div className={styles.quickInfo}>
                     <div className={styles.headingsContainer}>
                         <h1 className={styles.mainHeading}>{car.year} {car.manufacturer.name} {car.model}</h1>
-                        <h2 className={styles.price}>{formatPrice(car.price)}</h2>
+                        <h2 className={styles.price}>{formatPrice(posting.price)}</h2>
                         <h2 className={styles.mileage}>{formatMileageKm(car.mileage)}</h2>
                         <h2 className={styles.owner}>Owner: <Link to={`/users/${posting.creatorId}`}>{posting.creator}</Link></h2>
                     </div>

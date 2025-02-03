@@ -19,12 +19,10 @@ export type Transmission = {
 export type Car = {
     id: string;
     model: string;
-    price: number;
     mileage: number;
     year: number;
     manufacturer: Manufacturer;
     color: string;
-    description: string;
     categoryName: string;
     drivetrain: string
     engine: Engine;
@@ -34,6 +32,8 @@ export type Car = {
 export type Posting = {
     id: string;
     creationDate: Date;
+    price: number;
+    description: string;
     creator: string;
     creatorId: string;
     car: Car;
@@ -43,8 +43,8 @@ export type Posting = {
 export type User = {
     id: string;
     username: string;
-    authority: string;
-    postingIds: string[];
+    profilePicture: string;
+    postingIds: string[]
 }
 
 export type UserAuth = {
@@ -65,6 +65,7 @@ export type Message = {
 export type ChatWithMessages = {
     chatId: string;
     postingId: string;
-    chatName: string;
+    seller: User;
+    buyer: User;
     messages: Message[];
 }

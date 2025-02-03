@@ -18,7 +18,7 @@ function MessageBubble( {message} : Props) {
                 <img src='' onError={(e) => (e.currentTarget.src = fallbackImage)}></img>
             </figure> */}
             <p>{message.content}</p>
-            {/* <p>{formatDateTime(message.createdAt)}</p> */}
+            <p className={styles.timeSent}>{formatDateTime(new Date(message.createdAt))}</p>
         </div>
     );
 }

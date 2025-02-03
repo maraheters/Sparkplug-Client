@@ -6,6 +6,8 @@
 
     &MainImage {
         width: 100%;
+        aspect-ratio: 3/2;
+        object-fit: contain;
     }
 }
 
@@ -18,8 +20,10 @@
     scrollbar-width:thin;
 
     img {
-        width: 150px; 
+        max-width: 150px; 
         height: auto;
+        aspect-ratio: 3/2;
+        object-fit: contain;
         margin: 0;
 
         &:hover {

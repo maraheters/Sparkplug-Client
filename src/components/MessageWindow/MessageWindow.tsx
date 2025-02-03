@@ -5,7 +5,8 @@ import { Posting } from '../../api/sparkplugModels';
 import { useAuth } from '../../context/AuthContext';
 import MessageInput from '../MessageInput/MessageInput'
 import styles from './MessageWindow.module.scss'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useChats } from '../../context/ChatsContext';
 
 interface Props {
     posting: Posting;
@@ -14,6 +15,7 @@ interface Props {
 
 function MessageWindow({ posting, onClose }: Props) {
     const { userAuth } = useAuth();
+    const { sendMessage } = useChats();
     const navigate = useNavigate();
 
     const handleSend = async (text: string) => {
@@ -24,7 +26,7 @@ function MessageWindow({ posting, onClose }: Props) {
 
         try {
             const chatId = await initializeChat(userAuth.authToken, posting.id);
-            await sendMessage(userAuth.authToken, chatId, text);
+            await sendMessage(text, chatId);
             toast.success("Message sent!");
             navigate('/chats');
         } catch(e) {

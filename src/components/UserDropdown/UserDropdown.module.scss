@@ -2,24 +2,26 @@
 
 .container {
     position: relative;
-    display: inline-block;
+    display: flex;
     align-items: center;
     justify-content: center;
+
+    a {
+        margin-right: 10px;
+    }
 }
 
 .content {
     font-size: .9rem;
     display: none;
     position: absolute;
-    margin-top: 10px;
+    top: 50px;
     padding: 10px;
     min-width: max-content;
     background-color: $background-color;
     border: 1px solid $accent-color;
     border-radius: 5px;
     box-shadow: 4px 4px $box-shadow-color;
-    left: 50%; /* Центрирование по горизонтали */
-    transform: translateX(-50%); /* Сдвиг влево на 50% своей ширины */
     z-index: 1;
 
     &::before{
@@ -28,8 +30,7 @@
         width: 0;
         height: 0;
         top: -10px;
-        left: 50%;
-        margin-left: -10px;
+        left: 40%;
         border-style: solid;
         border-width: 0 10px 10px 10px;
         border-color: transparent transparent $accent-color transparent;
@@ -40,7 +41,7 @@
         padding: 5px 5px;
         text-decoration: none;
         display: block;
-        font-weight: 500;
+        font-weight: 400;
 
         &:hover {
             transform: scale(1.01);
@@ -56,10 +57,20 @@
     }
 }
 
-
 .container:hover .content {
     display: flex;
     flex-direction: column;
 }
 
 
+.profilePicture {
+    img {
+        max-width: 40px;
+        min-width: 40px;
+        max-height: 40px;
+        min-height: 40px;
+        object-fit: cover;
+        border-radius: 100%;
+        aspect-ratio: 1/1;
+    }
+}
