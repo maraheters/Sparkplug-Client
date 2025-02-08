@@ -30,7 +30,7 @@
         }
     }
 
-    box-shadow: 0 5px 3px $background-color-darker;
+    box-shadow: 0 5px 3px $background-color;
     border-bottom: 1px solid $black-color;
 }
 
@@ -43,6 +43,8 @@
 }
 
 .inputContainer {
+    border-top: 1px solid $black-color;
     width: 100%;
     max-height: fit-content;
+    padding: 0 10px;
 }

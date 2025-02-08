@@ -1,4 +1,4 @@
-@use '../../styles/colors.scss' as c;
+@use '../../styles/colors.scss' as *;
 @use '../../styles/mixins.scss' as m;
 
 .loginFormContainer, .registerFormContainer {
@@ -11,10 +11,11 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
+    background-color: $background-color;
 
     a {
         text-decoration: none;
-        color: c.$accent-color;
+        color: $accent-color;
     }
 
     input {
@@ -23,7 +24,7 @@
         min-height: 50px;
         margin: 10px;
         padding-left: 15px;
-        background-color: c.$background-color-darker ;
+        background-color: $background-color-darker ;
     
         &:focus{
             outline: none;
@@ -38,21 +39,21 @@
     justify-content: center; /* Центрирует по горизонтали */
     align-items: center; /* Центрирует по вертикали */
     padding: 20px;
-    border: 2px solid c.$accent-color;
+    border: 2px solid $accent-color;
     border-radius: 5px;
 }
 
 .error {
     margin-top: 20px;
     padding: 10px;
-    background-color: c.$accent-color;
-    color: white;
+    background-color: $accent-color;
+    color: $text-color;
 }
 
 .submitButton {
-    background-color: c.$accent-color;
+    background-color: $accent-color;
     width: 100%;
-    color: white;
+    color: $text-color;
     margin: 20px;
     border: none;
     border-radius: 5px;
@@ -69,7 +70,7 @@
 }
 
 .heading {
-    color: c.$accent-color;
+    color: $accent-color;
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 10px;

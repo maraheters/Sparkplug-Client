@@ -1,4 +1,5 @@
 @use '../../styles/colors.scss' as *;
+@use '../../styles/mixins.scss' as *;
 
 .profileContainer{
     h1 {
@@ -8,13 +9,10 @@
     }
 
     a {
+        @include hover-text;
         color: $accent-color;
         text-decoration: none;
         
-        &:hover {
-            color: $complementary-color;
-            transition: .2s ease;
-        }
     }
 }
 

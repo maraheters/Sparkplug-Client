@@ -35,12 +35,6 @@
 		padding-left: 20px;
 		padding-right: 20px;
 		
-		&:hover {
-			cursor: pointer;
-			color: $accent-color;
-			transition: .25s ease-in;
-		}
-		
 		h2 {
 			font-weight: bold;
 			font-size: 1.6rem;
@@ -51,6 +45,7 @@
 		h3 {
 			display: inline;
 			margin-top: 0;
+			color: $text-color;
 		}
 		
 		p {

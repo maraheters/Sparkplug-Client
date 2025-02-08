@@ -1,17 +1,25 @@
-$background-color: #292733;
-$background-color: #ffffff;
+$background-color: #1e1e1e;
+// $background-color: #ffffff;
 
-$background-color-darker: #1c1b24;
-$background-color-darker: #f6f6f6;
+$background-color-darker: #141414;
+// $background-color-darker: #f6f6f6;
 
 $accent-color: #dc3545;
-$complementary-color: #B81929;
+$accent-color-hover: #B81929;
 // $accent-color: #dc3545;
+
+$complementary-color: #1b8433;
+$complementary-color-hover: #17742d;
 
 $black-color: black;
 $gray-color: #292733;
 
 $text-color: #ffffff;
-$text-color: black;
+// $text-color: black;
+
+$text-color-placeholder: #757575;
+
+$scrollbar-color: #3a3a3a;
+$scrollbar-color-gutter: #2b2b2b;
 
 $box-shadow-color: rgba(0, 0, 0, 0.35);

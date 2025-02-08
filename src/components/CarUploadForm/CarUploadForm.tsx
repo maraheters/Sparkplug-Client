@@ -7,48 +7,54 @@ export interface CarFormData {
     color: string;
     transmission: Transmission;
     categoryName: string;
-    price: number;
     model: string;
     mileage: number;
     manufacturer: Manufacturer;
-    description: string;
     year: number;
     drivetrain: string;
 }
 
-const initialFormData: CarFormData = {
-    engine: {
-        power: 0,
-        torque: 0,
-        type: '',
-        fuelType: '',
-        displacement: 0
-    },
-    color: '',
-    transmission: {
-        gearboxType: '',
-        numberOfGears: 0
-    },
-    categoryName: '',
+export interface PostingData {
+    price: number,
+    description: string,
+    car: CarFormData;
+}
+
+const initialFormData: PostingData = {
     price: 0,
-    model: '',
-    mileage: 0,
-    manufacturer: {
-        name: '',
-        country: ''
-    },
     description: '',
-    year: 0,
-    drivetrain: ''
+    car: {
+        engine: {
+            power: 0,
+            torque: 0,
+            type: '',
+            fuelType: '',
+            displacement: 0
+        },
+        color: '',
+        transmission: {
+            gearboxType: '',
+            numberOfGears: 0
+        },
+        categoryName: '',
+        model: '',
+        mileage: 0,
+        manufacturer: {
+            name: '',
+            country: ''
+        },
+        year: 0,
+        drivetrain: ''
+    }
 };
 
 interface Props {
     onChange: (data: CarFormData) => void;
-    initialData?: CarFormData;
+    initialData?: PostingData;
 }
 
 const CarUploadForm: React.FC<Props> = ({ onChange, initialData }) => {
-    const [formData, setFormData] = useState<CarFormData>(initialFormData);
+    const [formData, setFormData] = useState<PostingData>(initialFormData);
     const initialDataSet = useRef(false);
 
     useEffect(() => {
@@ -67,7 +73,7 @@ const CarUploadForm: React.FC<Props> = ({ onChange, initialData }) => {
             setFormData(prevData => ({
                 ...prevData,
                 [keys[0]]: {
-                    ...(prevData[keys[0] as keyof CarFormData] as any),
+                    ...(prevData[keys[0] as keyof PostingData] as any),
                     [keys[1]]: value
                 }
             }));
@@ -80,7 +86,28 @@ const CarUploadForm: React.FC<Props> = ({ onChange, initialData }) => {
 
         onChange({
             ...formData,
-            [name]: value
+            [name]: value,
+            engine: {
+                displacement: 0,
+                power: 0,
+                torque: 0,
+                fuelType: '',
+                type: ''
+            },
+            color: '',
+            transmission: {
+                gearboxType: '',
+                numberOfGears: 0
+            },
+            categoryName: '',
+            model: '',
+            mileage: 0,
+            manufacturer: {
+                name: '',
+                country: ''
+            },
+            year: 0,
+            drivetrain: ''
         });
     };
 

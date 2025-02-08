@@ -1,9 +1,11 @@
 @use '../../styles/colors.scss' as *;
+@use '../../styles/mixins.scss' as *;
 
 .carInfoContainer {
     justify-content: center;
     background-color: $background-color;
-    // border: 1px solid $accent-color;
+    border: 1px solid $black-color;
+    border-radius: 5px;
     padding: 20px;
 }
 
@@ -53,6 +55,7 @@
         margin: 0;
 
         a {
+            @include hover-background;
             text-decoration: none;
             color: $accent-color;
         }
@@ -73,15 +76,12 @@
         margin: 0;
         font-size: 1.3rem;
         border: none;
-        border-radius: 0;
-        color: white;
+        border-radius: 3px;
+        color: $text-color;
         background-color: $accent-color;
+        cursor: pointer;
 
-        &:hover {
-            transform: scale(1.01);
-            transition: .25s ease;
-            cursor: pointer;
-        }
+        @include hover-background
     }
 }
 
@@ -91,6 +91,7 @@
     max-width: fit-content;
 
     &Section {
+        color: $text-color;
 
         h3 {
             margin-bottom: 0;

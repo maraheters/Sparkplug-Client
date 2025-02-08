@@ -7,17 +7,12 @@
 }
 
 @mixin clickable-text {
+    @include hover-text;
     font-weight: bold;
     color: $accent-color;
     font-size: 1.2rem;
     margin: 0 10px;
     text-decoration: none;
-
-    &:hover {
-        transition: .1s ease-in;
-        // scale: 105%;
-        color: $complementary-color;
-    }
 }
 
 .header__nav {

@@ -28,6 +28,17 @@ const fetchPostings = async (): Promise<Posting[]> => {
     return data;
 }
 
+const fetchPostingsByQuery = async (q?: string | null): Promise<Posting[]> => {
+    
+    const response = ( q )  ? await fetch(`${API_URL}/postings?q=${q}`) 
+                            : await fetch(`${API_URL}/postings`);
+    if (!response.ok) {
+        throw new Error(`HTTP error: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+}
+
 const fetchPostingById = async (id: string): Promise<Posting> => {
     const response = await fetch(`${API_URL}/postings/${id}`);
     if (!response.ok) {
@@ -187,6 +198,7 @@ export {
     fetchPostingById, 
     fetchPostingsByCreatorId, 
     fetchPostingsByCreatorUsername, 
+    fetchPostingsByQuery,
 
     fetchCurrentUser, 
 

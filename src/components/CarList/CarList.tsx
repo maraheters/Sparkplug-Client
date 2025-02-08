@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
 import CarCard from '../CarCard/CarCard';
-import { fetchPostings } from '../../api/sparkplugApi';
+import { fetchPostings, fetchPostingsByQuery } from '../../api/sparkplugApi';
 import { Posting } from '../../api/sparkplugModels';
 import styles from './CarList.module.scss';
 import WishlistButton from '../WishlistButton/WishlistButton';
+import { useLocation } from 'react-router-dom';
 
 function CarList() {
+    const location = useLocation();
+
     const [postings, setPostings] = useState<Posting[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const getCars = async () => {
+        const getCars = async (q?: string | null) => {
             try {
-                const data = await fetchPostings();
+                const data = await fetchPostingsByQuery(q);
                 console.log(data);
                 setPostings(data);
             } catch (error: any) {
@@ -23,9 +26,15 @@ function CarList() {
                 setLoading(false);
             }
         };
+        
+        const params = new URLSearchParams(location.search);
+        const query = params.get('q');
+        const sort = params.get('sort');
+        console.log(query);
 
-        getCars();
-    }, []);
+        getCars(query);
+
+    }, [location]);
 
     const carList = postings.map(posting => (
         <li key={posting.id}>

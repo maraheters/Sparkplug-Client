@@ -1,0 +1,52 @@
+@use '../../styles/colors.scss' as *;
+
+.container, .containerFocused {
+	max-width: 100%;
+    width: 100%;
+    margin: 0;
+	// border: 1px solid $black-color;
+}
+
+.control {
+	background-color: $background-color-darker;
+	border-radius: 4px;
+    padding: 0 10px
+}
+
+.option, .noOptionsMessage {
+	background-color: $background-color-darker;
+	padding: 10px;
+	
+	&:hover {
+		background-color: $accent-color-hover;
+        font-size: 1.3rem;
+	}
+}
+
+.valueContainer {
+    font-size: 1.3rem;
+    font-family: system-ui;
+	background-color: $background-color-darker;
+	color: $text-color;
+
+	// border-radius: 4px;
+	padding: 10px;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.menuList {
+	margin: 0;
+	width: 100%;
+	scrollbar-width: none;
+
+	border-radius: 0 0 4px 4px;
+}
+
+.placeholder {
+    font-weight: lighter;
+    background-color: none;
+    color: $text-color-placeholder;
+}

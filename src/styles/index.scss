@@ -24,6 +24,8 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  scrollbar-color: $scrollbar-color $scrollbar-color-gutter;
 }
 
 .container {
@@ -39,5 +41,9 @@ body {
 p {
 	font-weight: 400;
 	text-align: center;
+}
+
+p, h1,h2,h3,h4 {
   color: $text-color;
 }
+

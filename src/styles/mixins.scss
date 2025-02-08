@@ -7,3 +7,29 @@
 @mixin box-shadow-centered {
     box-shadow: 0 5px $box-shadow-color;
 }
+
+@mixin hover-background {
+    &:hover{
+        transition: .1s ease;
+        background-color: $accent-color-hover;
+    }
+}
+@mixin hover-text {
+    &:hover{
+        transition: .1s ease;
+        color: $accent-color-hover;
+    }
+}
+
+@mixin hover-background-complementary {
+    &:hover{
+        transition: .1s ease;
+        background-color: $complementary-color-hover;
+    }
+}
+@mixin hover-text-complementary {
+    &:hover{
+        transition: .1s ease;
+        color: $complementary-color-hover;
+    }
+}
